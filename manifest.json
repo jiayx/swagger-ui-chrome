@@ -1,0 +1,24 @@
+{
+  "manifest_version": 2,
+  "name": "Swagger-UI",
+  "icons": {
+    "128": "swagger/favicon-32x32.png"
+  },
+  "description": "Wrap for Swagger-UI",
+  "version": "1.0",
+  "browser_action": {
+    "default_icon": {
+      "16": "swagger/favicon-16x16.png",
+      "32": "swagger/favicon-32x32.png"
+    },
+    "default_title": "Swagger-UI"
+  },
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "permissions": [
+    "storage",
+    "*://*/"
+  ],
+  "content_security_policy": "script-src 'self' 'sha256-hpQSeFWbutNPDyEPIInbeH4CCsK3aiMqGGJQXphp1uU=';object-src 'self'"
+}
