@@ -37,6 +37,17 @@
     <script src="./swagger-ui-standalone-preset.js"> </script>
     <script>
     window.onload = function() {
+      // 主题
+      var theme = localStorage.getItem('theme')
+      if (theme) {
+        var style = document.createElement('style');
+        style.rel = 'stylesheet'
+        style.type = 'text/css'
+        // style.href = items.theme || './swagger-ui.css'
+        style.innerHTML = theme
+        document.getElementsByTagName('head').item(0).appendChild(style)
+      }
+
       document.getElementById("swagger-ui").onclick = function (e) {
         if (e.target.className == "download-url-button button") {
           var url = document.getElementsByClassName("download-url-input")[0].value

@@ -4,8 +4,8 @@
   "icons": {
     "128": "swagger/favicon-32x32.png"
   },
-  "description": "Wrap for Swagger-UI",
-  "version": "1.0",
+  "description": "将 Swagger-UI 打包成 Chrome 扩展，支持主题切换",
+  "version": "1.1",
   "browser_action": {
     "default_icon": {
       "16": "swagger/favicon-16x16.png",
@@ -14,11 +14,12 @@
     "default_title": "Swagger-UI"
   },
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["src/background.js"]
   },
+  "options_page": "src/options.html",
   "permissions": [
     "storage",
     "*://*/"
   ],
-  "content_security_policy": "script-src 'self' 'sha256-hpQSeFWbutNPDyEPIInbeH4CCsK3aiMqGGJQXphp1uU=';object-src 'self'"
+  "content_security_policy": "script-src 'self' 'sha256-7HEVigsUSgsHT9jr4p9u66DeT9lviSSF0f974wk8Zh0=';object-src 'self'"
 }

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Swagger UI 配置</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .content {
+            width: 1000px;
+            margin: 0 auto;
+        }
+        .title {
+            font-size: 20px;
+            margin: 20px auto;
+        }
+        .themes {
+            font-size: 14px;
+        }
+        .themes > ul {
+            list-style: none;
+            width: 100%;
+        }
+        .themes > ul > li {
+            overflow: hidden;
+            float: left;
+            width: 500px;
+            height: 250px;
+            padding: 0 25px;
+            border-bottom: #ccc solid 1px;
+            cursor: pointer;
+        }
+        .themes > ul > li:nth-child(odd) {
+            border-right: #ccc solid 1px;
+        }
+
+        .themes > ul > li > p {
+            font-size: 14px;
+            line-height: 40px;
+        }
+        .themes > ul > li > img {
+            width: 450px;
+        }
+        .clearfix {
+            zoom: 1;
+        }
+        .clearfix:after {
+            content: "";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+        #save {
+            padding: 6px 15px;
+            font-size: 14px;
+            background: #4af;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="title">
+            <p>选择主题</p>
+        </div>
+        <div>
+            <button id="save">保存</button>
+        </div>
+        <div class="themes">
+            <ul class="clearfix"></ul>
+        </div>
+    </div>
+</body>
+<script src="./options.js"></script>
+</html>
