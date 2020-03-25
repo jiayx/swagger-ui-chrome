@@ -10,7 +10,7 @@ window.onload = function () {
         if (url != '') {
             if (url == 'default') {
                 localStorage.removeItem('theme')
-                alert('设置成功')
+                alert('Success')
                 return
             }
 
@@ -18,9 +18,9 @@ window.onload = function () {
                 return response.text()
             }).then(function(text) {
                 localStorage.setItem('theme', text)
-                alert('设置成功')
+                alert('Success')
             }).catch(function(e) {
-                alert('读取主题出错，请重试')
+                alert('Fetch theme error, please try again')
             })
         }
     }
@@ -33,13 +33,13 @@ function loadThemes() {
     }).then(formatTheme)
     .catch(function(e) {
         console.log(e)
-        alert('加载主题失败，请检查网络')
+        alert('Fetch theme error, please check your network')
     })
 }
 
 function formatTheme(text) {
     var ul = document.getElementsByTagName('ul')[0]
-    var regex = /<a class="js-navigation-open" title=".*?" id=".*?" href="(.*?)">theme-(.*?).css<\/a>/g
+    var regex = /<a class="js-navigation-open.*?" title=".*?" id=".*?" href="(.*?)">theme-(.*?).css<\/a>/g
     var match, index = 0
 
     // 默认主题

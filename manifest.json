@@ -19,7 +19,8 @@
   "options_page": "src/options.html",
   "permissions": [
     "storage",
-    "*://*/"
+    "*://*.github.com/",
+    "*://*.githubusercontent.com/"
   ],
   "content_security_policy": "script-src 'self' 'sha256-7HEVigsUSgsHT9jr4p9u66DeT9lviSSF0f974wk8Zh0=';object-src 'self'"
 }
