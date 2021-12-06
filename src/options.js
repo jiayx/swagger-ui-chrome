@@ -27,19 +27,21 @@ window.onload = function () {
 }
 
 function loadThemes() {
+    console.log('load themes')
     var res = fetch('https://github.com/ostranme/swagger-ui-themes/tree/develop/themes/3.x')
     res.then(function(response) {
         return response.text()
-    }).then(formatTheme)
+    }).then(parseTheme)
     .catch(function(e) {
         console.log(e)
         alert('Fetch theme error, please check your network')
     })
 }
 
-function formatTheme(text) {
+function parseTheme(text) {
+    console.log('parse themes')
     var ul = document.getElementsByTagName('ul')[0]
-    var regex = /<a class="js-navigation-open.*?" title=".*?" id=".*?" href="(.*?)">theme-(.*?).css<\/a>/g
+    var regex = /<a class="js-navigation-open.*?" title=".*?".+href="(.*?)">theme-(.*?).css<\/a>/g
     var match, index = 0
 
     // 默认主题

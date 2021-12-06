@@ -14,4 +14,6 @@ fi
 
 cp $swagger_path/dist/* $pwd/swagger
 
+rm $pwd/swagger/*.map
+
 cp $pwd/src/index.templet.html $pwd/swagger/index.html
