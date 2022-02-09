@@ -15,5 +15,7 @@ fi
 cp $swagger_path/dist/* $pwd/swagger
 
 rm $pwd/swagger/*.map
+rm $pwd/swagger/swagger-ui-es-bundle*
+rm $pwd/swagger/swagger-ui.js
 
 cp $pwd/src/index.templet.html $pwd/swagger/index.html

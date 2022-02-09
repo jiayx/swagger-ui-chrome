@@ -5,7 +5,7 @@
     "128": "swagger/favicon-32x32.png"
   },
   "description": "将 Swagger-UI 打包成 Chrome 扩展，支持主题切换",
-  "version": "1.2",
+  "version": "1.4",
   "action": {
     "default_icon": {
       "16": "swagger/favicon-16x16.png",
