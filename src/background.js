@@ -1,7 +1,7 @@
-chrome.browserAction.onClicked.addListener(function() {
-    var url = chrome.extension.getURL('swagger/index.html')
-    chrome.tabs.create({
-        url: url,
-        selected: true,
-    })
+chrome.action.onClicked.addListener(async function() {
+  var url = chrome.runtime.getURL('swagger/index.html')
+  chrome.tabs.create({
+    url: url,
+    selected: true,
+  })
 })
