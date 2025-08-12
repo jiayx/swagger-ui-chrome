@@ -139,7 +139,7 @@ swagger-ui-chrome/
 
 本扩展动态加载以下仓库的主题：
 
-- [ilyamixaltik/swagger-ui-themes](https://github.com/ilyamixaltik/swagger-ui-themes)
+- [ilyamixaltik/swagger-themes](https://github.com/ilyamixaltik/swagger-themes)
 - [ostranme/swagger-ui-themes](https://github.com/ostranme/swagger-ui-themes)
 
 ## 📄 许可证
@@ -149,7 +149,7 @@ swagger-ui-chrome/
 ## 🙏 致谢
 
 - [Swagger UI](https://github.com/swagger-api/swagger-ui) - 优秀的 API 文档工具
-- 主题创作者 [ilyamixaltik/swagger-ui-themes](https://github.com/ilyamixaltik/swagger-ui-themes)
+- 主题创作者 [ilyamixaltik/swagger-themes](https://github.com/ilyamixaltik/swagger-themes)
 - 主题创作者 [ostranme/swagger-ui-themes](https://github.com/ostranme/swagger-ui-themes)
 - 所有帮助改进此扩展的贡献者
 

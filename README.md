@@ -139,7 +139,7 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 
 This extension dynamically loads themes from:
 
-- [ilyamixaltik/swagger-ui-themes](https://github.com/ilyamixaltik/swagger-ui-themes)
+- [ilyamixaltik/swagger-themes](https://github.com/ilyamixaltik/swagger-themes)
 - [ostranme/swagger-ui-themes](https://github.com/ostranme/swagger-ui-themes)
 
 ## 📄 License
@@ -149,7 +149,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🙏 Acknowledgments
 
 - [Swagger UI](https://github.com/swagger-api/swagger-ui) - The amazing API documentation tool
-- Theme creators [ilyamixaltik/swagger-ui-themes](https://github.com/ilyamixaltik/swagger-ui-themes)
+- Theme creators [ilyamixaltik/swagger-themes](https://github.com/ilyamixaltik/swagger-themes)
 - Theme creators [ostranme/swagger-ui-themes](https://github.com/ostranme/swagger-ui-themes)
 - All contributors who have helped improve this extension
 

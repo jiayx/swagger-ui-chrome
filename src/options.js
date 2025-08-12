@@ -241,7 +241,6 @@ class ThemeManager {
     async storeTheme(css, url) {
         // Store in Chrome storage
         return new Promise((resolve, reject) => {
-            console.log(css)
             chrome.storage.local.set({
                 theme: css,
                 themeUrl: url
