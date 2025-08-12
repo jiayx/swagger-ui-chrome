@@ -1,7 +1,4 @@
 chrome.pem
-swagger/*
-!swagger/.gitkeep
-swagger-ui/
 node_modules/
 .DS_Store
 *.zip
