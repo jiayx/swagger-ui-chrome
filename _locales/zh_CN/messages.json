@@ -1,5 +1,14 @@
 {
   "extDescription": {
-    "message": "将 Swagger-UI 打包成 Chrome 扩展，支持主题切换"
+    "message": "在浏览器中直接查看和测试 OpenAPI/Swagger API 文档，支持多种精美主题。专为 API 开发者和测试人员打造。"
+  },
+  "extName": {
+    "message": "Swagger UI - API 文档查看器"
+  },
+  "extShortName": {
+    "message": "Swagger UI"
+  },
+  "extDefaultTitle": {
+    "message": "打开 Swagger UI"
   }
 }

@@ -1,5 +1,14 @@
 {
   "extDescription": {
-    "message": "Pack Swagger-UI into a Chrome extension, support theme switching"
+    "message": "View and test OpenAPI/Swagger documentation directly in your browser with beautiful themes. Perfect for API developers and testers."
+  },
+  "extName": {
+    "message": "Swagger UI - API Documentation Viewer"
+  },
+  "extShortName": {
+    "message": "Swagger UI"
+  },
+  "extDefaultTitle": {
+    "message": "Open Swagger UI"
   }
 }

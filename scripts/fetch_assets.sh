@@ -4,9 +4,6 @@
 # 每行 4 列：REPO_URL  REF  SUBDIR  DEST
 read -r -d '' TASKS <<'EOF'
 https://github.com/swagger-api/swagger-ui.git master dist swagger-ui
-
-https://github.com/ostranme/swagger-ui-themes.git master themes/3.x themes/ostranme
-https://github.com/ilyamixaltik/swagger-themes.git main themes themes/ilyamixaltik
 EOF
 # ============================================================
 

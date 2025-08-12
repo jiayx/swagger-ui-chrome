@@ -1,6 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "Swagger-UI",
+  "name": "__MSG_extName__",
+  "short_name": "__MSG_extShortName__",
   "icons": {
     "128": "swagger-ui/favicon-32x32.png"
   },
@@ -11,7 +12,7 @@
       "16": "swagger-ui/favicon-16x16.png",
       "32": "swagger-ui/favicon-32x32.png"
     },
-    "default_title": "Swagger-UI"
+    "default_title": "__MSG_extDefaultTitle__"
   },
   "background": {
     "service_worker": "src/background.js"
