@@ -6,7 +6,7 @@
     "128": "swagger-ui/favicon-32x32.png"
   },
   "description": "__MSG_extDescription__",
-  "version": "1.5",
+  "version": "1.6",
   "action": {
     "default_icon": {
       "16": "swagger-ui/favicon-16x16.png",
