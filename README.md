@@ -160,6 +160,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔄 Changelog
 
+### Version 1.6
+- Apply theme without refresh
+- Add more languages support
+
 ### Version 1.5
 - Migrated to Manifest V3
 - Improved theme management system
