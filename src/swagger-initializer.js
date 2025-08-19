@@ -4,7 +4,7 @@ window.onload = function() {
       var url = document.getElementsByClassName("download-url-input")[0].value;
       chrome.storage.sync.set({'url': url});
     }
-  }
+  };
 
   chrome.storage.local.get(['theme'], (result) => {
     if (result.theme) {
@@ -13,7 +13,7 @@ window.onload = function() {
       style.innerHTML = formatCss(result.theme);
       document.getElementsByTagName('head').item(0).appendChild(style);
     }
-  })
+  });
 
   chrome.storage.sync.get('url', function (items) {
     const url = items.url || "https://petstore.swagger.io/v2/swagger.json";

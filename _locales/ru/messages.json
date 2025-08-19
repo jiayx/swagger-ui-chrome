@@ -1,0 +1,14 @@
+{
+  "extDescription": {
+    "message": "Просматривайте и тестируйте документацию OpenAPI/Swagger прямо в браузере с красивыми темами. Идеально для разработчиков и тестировщиков API."
+  },
+  "extName": {
+    "message": "Swagger UI - Просмотр документации API"
+  },
+  "extShortName": {
+    "message": "Swagger UI"
+  },
+  "extDefaultTitle": {
+    "message": "Открыть Swagger UI"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "extDescription": {
+    "message": "ブラウザで直接OpenAPI/Swagger APIドキュメントを表示・テストできます。美しいテーマで、API開発者やテスター向けに最適です。"
+  },
+  "extName": {
+    "message": "Swagger UI - APIドキュメントビューア"
+  },
+  "extShortName": {
+    "message": "Swagger UI"
+  },
+  "extDefaultTitle": {
+    "message": "Swagger UIを開く"
+  }
+}

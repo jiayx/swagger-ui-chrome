@@ -1,0 +1,14 @@
+{
+  "extDescription": {
+    "message": "브라우저에서 직접 OpenAPI/Swagger API 문서를 보고 테스트하세요. 아름다운 테마로 API 개발자와 테스터에게 완벽합니다."
+  },
+  "extName": {
+    "message": "Swagger UI - API 문서 뷰어"
+  },
+  "extShortName": {
+    "message": "Swagger UI"
+  },
+  "extDefaultTitle": {
+    "message": "Swagger UI 열기"
+  }
+}

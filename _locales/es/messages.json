@@ -1,0 +1,14 @@
+{
+  "extDescription": {
+    "message": "Visualiza y prueba documentación OpenAPI/Swagger directamente en tu navegador con hermosos temas. Perfecto para desarrolladores y probadores de API."
+  },
+  "extName": {
+    "message": "Swagger UI - Visor de Documentación API"
+  },
+  "extShortName": {
+    "message": "Swagger UI"
+  },
+  "extDefaultTitle": {
+    "message": "Abrir Swagger UI"
+  }
+}
