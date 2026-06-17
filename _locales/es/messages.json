@@ -10,5 +10,98 @@
   },
   "extDefaultTitle": {
     "message": "Abrir Swagger UI"
+  },
+  "optionsTitle": {
+    "message": "Configuración de temas de Swagger UI"
+  },
+  "optionsSubtitle": {
+    "message": "Elige tu tema preferido para Swagger UI"
+  },
+  "searchThemesPlaceholder": {
+    "message": "Buscar temas..."
+  },
+  "refreshButton": {
+    "message": "Actualizar"
+  },
+  "saveThemeButton": {
+    "message": "Guardar tema"
+  },
+  "savingButton": {
+    "message": "Guardando..."
+  },
+  "allThemes": {
+    "message": "Todos los temas"
+  },
+  "loadingThemes": {
+    "message": "Cargando temas..."
+  },
+  "noThemesFoundTitle": {
+    "message": "No se encontraron temas"
+  },
+  "noThemesFoundDescription": {
+    "message": "Prueba a ajustar la búsqueda o los filtros"
+  },
+  "localBadge": {
+    "message": "Local"
+  },
+  "inUse": {
+    "message": "En uso"
+  },
+  "saving": {
+    "message": "Guardando..."
+  },
+  "noPreviewAvailable": {
+    "message": "Vista previa no disponible"
+  },
+  "themeResetSuccess": {
+    "message": "El tema se restableció al predeterminado"
+  },
+  "themeSavedSuccess": {
+    "message": "Tema guardado correctamente"
+  },
+  "themeSaveFailed": {
+    "message": "No se pudo guardar el tema. Inténtalo de nuevo."
+  },
+  "githubNetworkFailed": {
+    "message": "No se pudo acceder a la API de GitHub. Comprueba tu conexión de red e inténtalo de nuevo."
+  },
+  "githubRateLimitPrimary": {
+    "message": "Se alcanzó el límite de solicitudes de la API de GitHub. Las solicitudes sin autenticación suelen compartir la cuota de tu IP actual. Inténtalo de nuevo después de $reset_at$, o inicia sesión / configura un token de GitHub.",
+    "placeholders": {
+      "reset_at": {
+        "content": "$1"
+      }
+    }
+  },
+  "githubRateLimitSecondary": {
+    "message": "GitHub limitó temporalmente las solicitudes frecuentes. Vuelve a intentarlo después de $wait_time$.",
+    "placeholders": {
+      "wait_time": {
+        "content": "$1"
+      }
+    }
+  },
+  "githubRateLimitGeneric": {
+    "message": "Las solicitudes a la API de GitHub están limitadas temporalmente. Inténtalo más tarde o inicia sesión en GitHub."
+  },
+  "githubAuthInvalid": {
+    "message": "La autenticación de GitHub no es válida o ha caducado. Inicia sesión de nuevo o actualiza tu token de acceso."
+  },
+  "githubPermissionDenied": {
+    "message": "GitHub rechazó la solicitud. Es posible que el repositorio no sea accesible o que el token no tenga los permisos necesarios."
+  },
+  "seconds": {
+    "message": "$count$ segundos",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "aboutOneMinute": {
+    "message": "aproximadamente un minuto"
+  },
+  "later": {
+    "message": "más tarde"
   }
 }

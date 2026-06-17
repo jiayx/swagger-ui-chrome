@@ -12,82 +12,94 @@
         }
 
         :root {
-            --primary-color: #4078f2;
-            --success-color: #28a745;
-            --danger-color: #dc3545;
-            --border-color: #e1e4e8;
-            --hover-bg: #f6f8fa;
-            --text-primary: #24292e;
-            --text-secondary: #586069;
+            --primary-color: #2563eb;
+            --success-color: #16803c;
+            --danger-color: #c62828;
+            --border-color: #d8dee8;
+            --border-subtle: #e9edf3;
+            --hover-bg: #eef4ff;
+            --text-primary: #1f2937;
+            --text-secondary: #667085;
             --bg-primary: #ffffff;
-            --bg-secondary: #fafbfc;
-            --shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-            --shadow-hover: 0 3px 6px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.12);
+            --bg-secondary: #f3f6fa;
+            --toolbar-bg: rgba(243, 246, 250, 0.92);
+            --shadow: 0 1px 2px rgba(16, 24, 40, 0.06);
+            --shadow-hover: 0 10px 28px rgba(15, 23, 42, 0.12);
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
             background: var(--bg-secondary);
             color: var(--text-primary);
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1240px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 18px 24px 28px;
         }
 
         .header {
-            background: var(--bg-primary);
-            border-radius: 8px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: var(--shadow);
+            padding: 2px 2px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
         }
 
         .header h1 {
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 10px;
+            font-size: 22px;
+            font-weight: 650;
             display: flex;
             align-items: center;
             gap: 10px;
+            line-height: 1.2;
+        }
+
+        .header h1 img {
+            width: 28px;
+            height: 28px;
         }
 
         .header .subtitle {
             color: var(--text-secondary);
-            font-size: 16px;
+            font-size: 13px;
+            text-align: right;
+            max-width: 420px;
         }
 
         .controls {
-            background: var(--bg-primary);
-            border-radius: 8px;
-            padding: 20px 30px;
-            margin-bottom: 30px;
-            box-shadow: var(--shadow);
+            background: var(--toolbar-bg);
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 10px 2px;
+            margin: 0 -2px 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: sticky;
-            top: 8px;
+            top: 0;
             z-index: 10;
+            backdrop-filter: blur(12px);
         }
 
         .search-box {
             position: relative;
             flex: 1;
-            max-width: 400px;
-            margin-right: 20px;
+            max-width: 460px;
+            margin-right: 16px;
         }
 
         .search-box input {
             width: 100%;
-            padding: 10px 40px 10px 15px;
+            height: 38px;
+            padding: 8px 38px 8px 13px;
             border: 1px solid var(--border-color);
             border-radius: 6px;
             font-size: 14px;
-            transition: all 0.3s;
+            background: var(--bg-primary);
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
         .search-box input:focus {
@@ -106,17 +118,17 @@
 
         .button-group {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
         .btn {
-            padding: 10px 20px;
+            min-height: 38px;
+            padding: 8px 14px;
             font-size: 14px;
             font-weight: 500;
-            border: none;
             border-radius: 6px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: background 0.2s, border-color 0.2s, color 0.2s;
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -129,8 +141,6 @@
 
         .btn-primary:hover {
             background: #3060d0;
-            transform: translateY(-1px);
-            box-shadow: var(--shadow);
         }
 
         .btn-secondary {
@@ -149,21 +159,19 @@
         }
 
         .themes-container {
-            background: var(--bg-primary);
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: var(--shadow);
+            padding: 0;
         }
 
         .filter-tabs {
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--border-color);
+            gap: 6px;
+            margin-bottom: 16px;
+            padding-bottom: 0;
+            border-bottom: 1px solid var(--border-subtle);
         }
 
         .filter-tab {
-            padding: 10px 16px;
+            padding: 9px 12px;
             background: none;
             border: none;
             color: var(--text-secondary);
@@ -171,11 +179,13 @@
             font-size: 14px;
             font-weight: 500;
             position: relative;
-            transition: color 0.3s;
+            transition: color 0.2s, background 0.2s;
+            border-radius: 6px 6px 0 0;
         }
 
         .filter-tab:hover {
             color: var(--text-primary);
+            background: rgba(37, 99, 235, 0.06);
         }
 
         .filter-tab.active {
@@ -186,44 +196,55 @@
             content: '';
             position: absolute;
             bottom: -1px;
-            left: 0;
-            right: 0;
+            left: 10px;
+            right: 10px;
             height: 2px;
             background: var(--primary-color);
         }
 
         .themes-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(292px, 1fr));
+            gap: 18px;
         }
 
         .theme-card {
-            border: 2px solid var(--border-color);
+            border: 1px solid var(--border-subtle);
             border-radius: 8px;
             overflow: hidden;
-            transition: all 0.3s;
+            transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
             cursor: pointer;
             background: var(--bg-primary);
+            box-shadow: var(--shadow);
         }
 
         .theme-card:hover {
             transform: translateY(-2px);
             box-shadow: var(--shadow-hover);
-            border-color: var(--primary-color);
+            border-color: #b7c7e8;
         }
 
         .theme-card.selected {
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(64, 120, 242, 0.1);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
+        .theme-card.current {
+            border-color: var(--success-color);
+        }
+
+        .theme-card.current.selected {
+            box-shadow: 0 0 0 3px rgba(22, 128, 60, 0.14);
         }
 
         .theme-preview {
-            width: 350px;
-            min-height: 200px;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            min-height: 160px;
             background: var(--bg-secondary);
             position: relative;
             overflow: hidden;
+            border-bottom: 1px solid var(--border-subtle);
         }
 
         .theme-preview img {
@@ -242,26 +263,39 @@
         }
 
         .theme-info {
-            padding: 15px;
+            padding: 13px 14px 14px;
         }
 
         .theme-name {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
             display: flex;
             align-items: center;
+            flex-wrap: wrap;
             gap: 8px;
         }
 
         .theme-badge {
             display: inline-block;
-            padding: 2px 8px;
+            padding: 2px 7px;
             background: var(--primary-color);
             color: white;
-            border-radius: 12px;
+            border-radius: 999px;
             font-size: 11px;
             font-weight: 500;
+        }
+
+        .theme-badge-in-use {
+            background: var(--success-color);
+        }
+
+        .theme-badge-saving {
+            background: var(--primary-color);
+        }
+
+        .theme-badge-source {
+            background: #64748b;
         }
 
         .theme-source {
@@ -290,42 +324,49 @@
         }
 
         .error-message {
-            background: #fee;
-            border: 1px solid #fcc;
+            background: #fff5f5;
+            border: 1px solid #f4b4b4;
             color: var(--danger-color);
-            padding: 15px;
+            padding: 12px 14px;
             border-radius: 6px;
-            margin: 20px 0;
+            margin-bottom: 16px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .status-area:empty {
+            display: none;
         }
 
         .success-message {
-            background: #d4edda;
-            border: 1px solid #c3e6cb;
+            background: #ecfdf3;
+            border: 1px solid #b7e3c4;
             color: var(--success-color);
-            padding: 15px;
+            padding: 12px 14px;
             border-radius: 6px;
             position: fixed;
-            top: 20px;
             right: 20px;
+            bottom: 20px;
             z-index: 1000;
-            animation: slideIn 0.3s ease-out;
+            animation: toastIn 0.25s ease-out;
         }
 
-        @keyframes slideIn {
+        @keyframes toastIn {
             from {
-                transform: translateX(100%);
+                transform: translateY(12px);
                 opacity: 0;
             }
             to {
-                transform: translateX(0);
+                transform: translateY(0);
                 opacity: 1;
             }
         }
 
         .empty-state {
             text-align: center;
-            padding: 60px 20px;
+            padding: 72px 20px;
             color: var(--text-secondary);
+            grid-column: 1 / -1;
         }
 
         .empty-state h3 {
@@ -336,6 +377,20 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            .container {
+                padding: 12px;
+            }
+
+            .header {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .header .subtitle {
+                text-align: left;
+            }
+
             .themes-grid {
                 grid-template-columns: 1fr;
             }
@@ -343,6 +398,10 @@
             .controls {
                 flex-direction: column;
                 align-items: stretch;
+                margin-left: -12px;
+                margin-right: -12px;
+                padding-left: 12px;
+                padding-right: 12px;
             }
 
             .search-box {
@@ -361,38 +420,37 @@
     <div class="container">
         <div class="header">
             <h1>
-                <img src="../swagger-ui/favicon-32x32.png" alt="Swagger UI Theme Settings" width="24" height="24">
-                Swagger UI Theme Settings
+                <img src="../swagger-ui/favicon-32x32.png" alt="Swagger UI" width="24" height="24">
+                <span data-i18n="optionsTitle">Swagger UI Theme Settings</span>
             </h1>
-            <p class="subtitle">Choose your preferred theme for Swagger UI</p>
+            <p class="subtitle" data-i18n="optionsSubtitle">Choose your preferred theme for Swagger UI</p>
         </div>
 
         <div class="controls">
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Search themes...">
+                <input type="text" id="searchInput" placeholder="Search themes..." data-i18n-placeholder="searchThemesPlaceholder">
                 <span class="search-icon">🔍</span>
             </div>
             <div class="button-group">
                 <button id="refreshBtn" class="btn btn-secondary">
-                    <span>🔄</span> Refresh
-                </button>
-                <button id="saveBtn" class="btn btn-primary" disabled>
-                    <span>✅</span> Save Theme
+                    <span>🔄</span> <span data-i18n="refreshButton">Refresh</span>
                 </button>
             </div>
         </div>
 
         <div class="themes-container">
             <div class="filter-tabs">
-                <button class="filter-tab active" data-filter="all">All Themes</button>
+                <button class="filter-tab active" data-filter="all" data-i18n="allThemes">All Themes</button>
                 <button class="filter-tab" data-filter="ilyamixaltik">ilyamixaltik</button>
                 <button class="filter-tab" data-filter="ostranme">ostranme</button>
             </div>
 
+            <div id="statusArea" class="status-area"></div>
+
             <div id="themesGrid" class="themes-grid">
                 <div class="loading">
                     <div class="loading-spinner"></div>
-                    <p>Loading themes...</p>
+                    <p data-i18n="loadingThemes">Loading themes...</p>
                 </div>
             </div>
         </div>

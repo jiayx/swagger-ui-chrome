@@ -10,5 +10,98 @@
   },
   "extDefaultTitle": {
     "message": "Swagger UI 열기"
+  },
+  "optionsTitle": {
+    "message": "Swagger UI 테마 설정"
+  },
+  "optionsSubtitle": {
+    "message": "Swagger UI에 사용할 테마를 선택하세요"
+  },
+  "searchThemesPlaceholder": {
+    "message": "테마 검색..."
+  },
+  "refreshButton": {
+    "message": "새로고침"
+  },
+  "saveThemeButton": {
+    "message": "테마 저장"
+  },
+  "savingButton": {
+    "message": "저장 중..."
+  },
+  "allThemes": {
+    "message": "모든 테마"
+  },
+  "loadingThemes": {
+    "message": "테마를 불러오는 중..."
+  },
+  "noThemesFoundTitle": {
+    "message": "테마를 찾을 수 없음"
+  },
+  "noThemesFoundDescription": {
+    "message": "검색어나 필터 조건을 조정해 보세요"
+  },
+  "localBadge": {
+    "message": "로컬"
+  },
+  "inUse": {
+    "message": "현재 사용 중"
+  },
+  "saving": {
+    "message": "저장 중..."
+  },
+  "noPreviewAvailable": {
+    "message": "미리보기를 사용할 수 없음"
+  },
+  "themeResetSuccess": {
+    "message": "테마가 기본값으로 재설정되었습니다"
+  },
+  "themeSavedSuccess": {
+    "message": "테마가 저장되었습니다"
+  },
+  "themeSaveFailed": {
+    "message": "테마를 저장하지 못했습니다. 다시 시도하세요."
+  },
+  "githubNetworkFailed": {
+    "message": "GitHub API에 액세스하지 못했습니다. 네트워크 연결을 확인한 후 다시 시도하세요."
+  },
+  "githubRateLimitPrimary": {
+    "message": "GitHub API 요청 한도에 도달했습니다. 인증되지 않은 요청은 일반적으로 현재 IP의 할당량을 공유합니다. $reset_at$ 이후 다시 시도하거나 GitHub에 로그인 / 토큰을 설정하세요.",
+    "placeholders": {
+      "reset_at": {
+        "content": "$1"
+      }
+    }
+  },
+  "githubRateLimitSecondary": {
+    "message": "GitHub가 빈번한 요청을 일시적으로 제한했습니다. $wait_time$ 후 다시 시도하세요.",
+    "placeholders": {
+      "wait_time": {
+        "content": "$1"
+      }
+    }
+  },
+  "githubRateLimitGeneric": {
+    "message": "GitHub API 요청이 일시적으로 제한되고 있습니다. 나중에 다시 시도하거나 GitHub에 로그인하세요."
+  },
+  "githubAuthInvalid": {
+    "message": "GitHub 인증이 유효하지 않거나 만료되었습니다. 다시 로그인하거나 액세스 토큰을 업데이트하세요."
+  },
+  "githubPermissionDenied": {
+    "message": "GitHub가 요청을 거부했습니다. 저장소에 액세스할 수 없거나 토큰에 필요한 권한이 없을 수 있습니다."
+  },
+  "seconds": {
+    "message": "$count$초",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "aboutOneMinute": {
+    "message": "약 1분"
+  },
+  "later": {
+    "message": "나중에"
   }
 }

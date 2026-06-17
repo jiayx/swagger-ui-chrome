@@ -10,5 +10,98 @@
   },
   "extDefaultTitle": {
     "message": "Swagger UIを開く"
+  },
+  "optionsTitle": {
+    "message": "Swagger UI テーマ設定"
+  },
+  "optionsSubtitle": {
+    "message": "Swagger UI で使用するテーマを選択してください"
+  },
+  "searchThemesPlaceholder": {
+    "message": "テーマを検索..."
+  },
+  "refreshButton": {
+    "message": "更新"
+  },
+  "saveThemeButton": {
+    "message": "テーマを保存"
+  },
+  "savingButton": {
+    "message": "保存中..."
+  },
+  "allThemes": {
+    "message": "すべてのテーマ"
+  },
+  "loadingThemes": {
+    "message": "テーマを読み込み中..."
+  },
+  "noThemesFoundTitle": {
+    "message": "テーマが見つかりません"
+  },
+  "noThemesFoundDescription": {
+    "message": "検索条件またはフィルターを調整してください"
+  },
+  "localBadge": {
+    "message": "ローカル"
+  },
+  "inUse": {
+    "message": "使用中"
+  },
+  "saving": {
+    "message": "保存中..."
+  },
+  "noPreviewAvailable": {
+    "message": "プレビューはありません"
+  },
+  "themeResetSuccess": {
+    "message": "テーマをデフォルトに戻しました"
+  },
+  "themeSavedSuccess": {
+    "message": "テーマを保存しました"
+  },
+  "themeSaveFailed": {
+    "message": "テーマを保存できませんでした。もう一度お試しください。"
+  },
+  "githubNetworkFailed": {
+    "message": "GitHub API にアクセスできませんでした。ネットワーク接続を確認して、もう一度お試しください。"
+  },
+  "githubRateLimitPrimary": {
+    "message": "GitHub API のレート制限に達しました。未認証のリクエストは通常、現在の IP のクォータを共有します。$reset_at$ 以降に再試行するか、GitHub にサインイン / トークンを設定してください。",
+    "placeholders": {
+      "reset_at": {
+        "content": "$1"
+      }
+    }
+  },
+  "githubRateLimitSecondary": {
+    "message": "GitHub が頻繁なリクエストを一時的に制限しました。$wait_time$ 後に再試行してください。",
+    "placeholders": {
+      "wait_time": {
+        "content": "$1"
+      }
+    }
+  },
+  "githubRateLimitGeneric": {
+    "message": "GitHub API リクエストが一時的にレート制限されています。後でもう一度試すか、GitHub にサインインしてください。"
+  },
+  "githubAuthInvalid": {
+    "message": "GitHub の認証が無効または期限切れです。再度サインインするか、アクセストークンを更新してください。"
+  },
+  "githubPermissionDenied": {
+    "message": "GitHub がリクエストを拒否しました。リポジトリにアクセスできないか、トークンに必要な権限がない可能性があります。"
+  },
+  "seconds": {
+    "message": "$count$ 秒",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "aboutOneMinute": {
+    "message": "約 1 分"
+  },
+  "later": {
+    "message": "後ほど"
   }
 }

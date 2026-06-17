@@ -7,8 +7,10 @@ class ThemeManager {
   constructor() {
     this.themes = [];
     this.selectedTheme = null;
+    this.currentThemeUrl = null;
     this.currentFilter = 'all';
     this.searchQuery = '';
+    this.loadErrors = [];
 
     // GitHub repositories configuration
     this.githubRepos = [
@@ -17,6 +19,7 @@ class ThemeManager {
         repo: 'swagger-themes',
         branch: 'main',
         path: 'themes',
+        label: 'ilyamixaltik',
         screenshotPath: 'screenshots',
         screenshotFormat: 'jpeg'
       },
@@ -25,6 +28,7 @@ class ThemeManager {
         repo: 'swagger-ui-themes',
         branch: 'master',
         path: 'themes/3.x',
+        label: 'ostranme',
         screenshotPath: 'screenshots/3.x',
         screenshotNamePrefix: '3.x',
         screenshotFormat: 'png'
@@ -34,18 +38,36 @@ class ThemeManager {
     this.init();
   }
 
+  t(messageName, substitutions) {
+    const message = chrome.i18n.getMessage(messageName, substitutions);
+    return message || messageName;
+  }
+
+  localizePage() {
+    document.documentElement.lang = chrome.i18n.getUILanguage();
+    document.title = this.t('optionsTitle');
+
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+      element.textContent = this.t(element.dataset.i18n);
+    });
+
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+      element.placeholder = this.t(element.dataset.i18nPlaceholder);
+    });
+  }
+
   async init() {
+    this.localizePage();
     this.setupEventListeners();
+    await this.loadSavedTheme();
     await this.loadThemes();
-    this.loadSavedTheme();
   }
 
   setupEventListeners() {
-    // Save button
-    document.getElementById('saveBtn').addEventListener('click', () => this.saveTheme());
-
     // Refresh button
-    document.getElementById('refreshBtn').addEventListener('click', () => this.loadThemes());
+    document.getElementById('refreshBtn').addEventListener('click', () => {
+      this.loadThemes({ preserveContent: true, restoreScrollY: window.scrollY });
+    });
 
     // Search input
     document.getElementById('searchInput').addEventListener('input', (e) => {
@@ -64,28 +86,46 @@ class ThemeManager {
     });
   }
 
-  async loadThemes() {
-    this.showLoading();
-    this.themes = [];
+  async loadThemes(options = {}) {
+    const { preserveContent = false, restoreScrollY } = options;
+    const refreshBtn = document.getElementById('refreshBtn');
 
-    // Add default theme
-    // this.themes.push({
-    //     name: 'Default',
-    //     source: 'built-in',
-    //     url: 'default',
-    //     description: 'Original Swagger UI theme',
-    //     screenshot: null
-    // });
-
-    // Load GitHub themes
     try {
-      await this.loadGitHubThemes();
-    } catch (error) {
-      console.error('Error loading GitHub themes:', error);
-      this.showError('Failed to load themes from GitHub. Please check your network connection.');
-    }
+      if (!preserveContent || this.themes.length === 0) {
+        this.showLoading();
+      }
 
-    this.renderThemes();
+      refreshBtn.disabled = true;
+      this.clearStatus();
+      this.themes = [];
+      this.loadErrors = [];
+
+      // Add default theme
+      // this.themes.push({
+      //     name: 'Default',
+      //     source: 'built-in',
+      //     url: 'default',
+      //     description: 'Original Swagger UI theme',
+      //     screenshot: null
+      // });
+
+      // Load GitHub themes
+      try {
+        await this.loadGitHubThemes();
+      } catch (error) {
+        console.error('Error loading GitHub themes:', error);
+        this.addLoadError(this.t('githubNetworkFailed'));
+      }
+
+      this.renderThemes();
+      this.showLoadErrors();
+
+      if (Number.isFinite(restoreScrollY)) {
+        requestAnimationFrame(() => window.scrollTo({ top: restoreScrollY }));
+      }
+    } finally {
+      refreshBtn.disabled = false;
+    }
   }
 
   async loadGitHubThemes() {
@@ -96,7 +136,8 @@ class ThemeManager {
         const response = await fetch(apiUrl);
 
         if (!response.ok) {
-          throw new Error(`GitHub API returned ${response.status}`);
+          const errorBody = await this.parseResponseJson(response);
+          throw this.createGitHubApiError(response, errorBody);
         }
 
         const files = await response.json();
@@ -114,15 +155,98 @@ class ThemeManager {
             name: this.formatThemeName(themeName),
             source: config.owner,
             repository: `${config.owner}/${config.repo}`,
+            repositoryLabel: config.label,
             url: themeUrl,
-            description: `Theme from ${config.owner}/${config.repo}`,
+            description: `${config.owner}/${config.repo}`,
             screenshot: screenshotUrl
           });
         }
       } catch (error) {
         console.error(`Error loading themes from ${config.owner}/${config.repo}:`, error);
+        this.addLoadError(this.getGitHubApiErrorMessage(error));
       }
     }
+  }
+
+  addLoadError(message) {
+    if (!this.loadErrors.includes(message)) {
+      this.loadErrors.push(message);
+    }
+  }
+
+  async parseResponseJson(response) {
+    try {
+      return await response.clone().json();
+    } catch (_) {
+      return null;
+    }
+  }
+
+  createGitHubApiError(response, body) {
+    const error = new Error(`GitHub API returned ${response.status}`);
+    error.githubApi = {
+      status: response.status,
+      body,
+      headers: {
+        retryAfter: response.headers.get('retry-after'),
+        rateLimitRemaining: response.headers.get('x-ratelimit-remaining'),
+        rateLimitReset: response.headers.get('x-ratelimit-reset')
+      }
+    };
+    return error;
+  }
+
+  getGitHubApiErrorMessage(error) {
+    const apiError = error.githubApi;
+
+    if (!apiError) {
+      return this.t('githubNetworkFailed');
+    }
+
+    const { status, headers, body } = apiError;
+    const message = String(body?.message || '');
+
+    if ((status === 403 || status === 429) && headers.rateLimitRemaining === '0') {
+      const resetAt = this.formatResetTime(headers.rateLimitReset);
+      return this.t('githubRateLimitPrimary', [resetAt]);
+    }
+
+    if ((status === 403 || status === 429) && /secondary rate limit/i.test(message)) {
+      const waitTime = headers.retryAfter
+        ? this.t('seconds', [headers.retryAfter])
+        : this.t('aboutOneMinute');
+      return this.t('githubRateLimitSecondary', [waitTime]);
+    }
+
+    if (status === 403 && /rate limit/i.test(message)) {
+      return this.t('githubRateLimitGeneric');
+    }
+
+    if (status === 401) {
+      return this.t('githubAuthInvalid');
+    }
+
+    if (status === 403) {
+      return this.t('githubPermissionDenied');
+    }
+
+    return this.t('githubNetworkFailed');
+  }
+
+  formatResetTime(resetEpochSeconds) {
+    if (!resetEpochSeconds) {
+      return this.t('later');
+    }
+
+    const resetAt = new Date(Number(resetEpochSeconds) * 1000);
+    if (Number.isNaN(resetAt.getTime())) {
+      return this.t('later');
+    }
+
+    return new Intl.DateTimeFormat(chrome.i18n.getUILanguage(), {
+      dateStyle: 'medium',
+      timeStyle: 'short'
+    }).format(resetAt);
   }
 
   formatThemeName(name) {
@@ -152,8 +276,8 @@ class ThemeManager {
     if (filteredThemes.length === 0) {
       container.innerHTML = `
                 <div class="empty-state">
-                    <h3>No themes found</h3>
-                    <p>Try adjusting your search or filter criteria</p>
+                    <h3>${this.t('noThemesFoundTitle')}</h3>
+                    <p>${this.t('noThemesFoundDescription')}</p>
                 </div>
             `;
       return;
@@ -166,26 +290,46 @@ class ThemeManager {
     container.querySelectorAll('.theme-card').forEach(card => {
       card.addEventListener('click', () => this.selectTheme(card.dataset.themeUrl));
     });
+
+    container.querySelectorAll('.theme-screenshot').forEach(image => {
+      image.addEventListener('error', () => {
+        const preview = image.parentElement;
+        preview.classList.add('no-image');
+        preview.textContent = this.t('noPreviewAvailable');
+      }, { once: true });
+    });
   }
 
   createThemeCard(theme) {
     const isSelected = this.selectedTheme === theme.url;
-    const badge = theme.source === 'local' ? '<span class="theme-badge">Local</span>' :
-    theme.source === 'github' ? '<span class="theme-badge">GitHub</span>' : '';
+    const isCurrent = this.currentThemeUrl === theme.url;
+    const badges = [];
+
+    if (isCurrent) {
+      badges.push(`<span class="theme-badge theme-badge-in-use">${this.t('inUse')}</span>`);
+    } else if (isSelected) {
+      badges.push(`<span class="theme-badge theme-badge-saving">${this.t('saving')}</span>`);
+    }
+
+    if (theme.source === 'local') {
+      badges.push(`<span class="theme-badge theme-badge-source">${this.t('localBadge')}</span>`);
+    } else if (theme.repositoryLabel) {
+      badges.push(`<span class="theme-badge theme-badge-source">${theme.repositoryLabel}</span>`);
+    }
 
     const preview = theme.screenshot
-    ? `<img src="${theme.screenshot}" alt="${theme.name}" loading="lazy" onerror="this.parentElement.classList.add('no-image'); this.parentElement.innerHTML='No preview available';">`
-    : '<div class="no-image">No preview available</div>';
+    ? `<img class="theme-screenshot" src="${theme.screenshot}" alt="${theme.name}" loading="lazy">`
+    : `<div class="no-image">${this.t('noPreviewAvailable')}</div>`;
 
     return `
-            <div class="theme-card ${isSelected ? 'selected' : ''}" data-theme-url="${theme.url}">
+            <div class="theme-card ${isSelected ? 'selected' : ''} ${isCurrent ? 'current' : ''}" data-theme-url="${theme.url}">
                 <div class="theme-preview ${!theme.screenshot ? 'no-image' : ''}">
                     ${preview}
                 </div>
                 <div class="theme-info">
                     <div class="theme-name">
                         ${theme.name}
-                        ${badge}
+                        ${badges.join('')}
                     </div>
                     <div class="theme-source">${theme.description}</div>
                 </div>
@@ -193,41 +337,40 @@ class ThemeManager {
         `;
   }
 
-  selectTheme(themeUrl) {
+  async selectTheme(themeUrl) {
+    if (themeUrl === this.currentThemeUrl) {
+      return;
+    }
+
     this.selectedTheme = themeUrl;
 
     // Update UI
-    document.querySelectorAll('.theme-card').forEach(card => {
-      card.classList.toggle('selected', card.dataset.themeUrl === themeUrl);
-    });
-
-    // Enable save button
-    document.getElementById('saveBtn').disabled = false;
+    this.renderThemes();
+    await this.saveTheme(themeUrl);
   }
 
-  async saveTheme() {
-    if (!this.selectedTheme) return;
-
-    const saveBtn = document.getElementById('saveBtn');
-    saveBtn.disabled = true;
-    saveBtn.innerHTML = '<span>⏳</span> Saving...';
+  async saveTheme(themeUrl) {
+    if (!themeUrl) return;
 
     try {
-      if (this.selectedTheme === 'default') {
+      if (themeUrl === 'default') {
         // Remove custom theme
         await this.removeStoredTheme();
-        this.showSuccess('Theme reset to default');
+        this.currentThemeUrl = null;
+        this.showSuccess(this.t('themeResetSuccess'));
       } else {
         // Fetch and store theme CSS
-        const response = await fetch(this.selectedTheme);
+        const response = await fetch(themeUrl);
 
         if (!response.ok) {
-          throw new Error('Failed to fetch theme');
+          throw new Error(`Failed to fetch theme: ${response.status}`);
         }
 
         const css = await response.text();
-        await this.storeTheme(css, this.selectedTheme);
-        this.showSuccess('Theme saved successfully');
+        await this.storeTheme(css, themeUrl);
+        this.currentThemeUrl = themeUrl;
+        this.selectedTheme = themeUrl;
+        this.showSuccess(this.t('themeSavedSuccess'));
         chrome.runtime.sendMessage({ type: 'setTheme', theme: css }, (response) => {
           if (chrome.runtime.lastError) {
             console.info('Error sending message:', chrome.runtime.lastError.message);
@@ -236,10 +379,10 @@ class ThemeManager {
       }
     } catch (error) {
       console.error('Error saving theme:', error);
-      this.showError('Failed to save theme. Please try again.');
+      this.selectedTheme = this.currentThemeUrl;
+      this.showError(this.t('themeSaveFailed'));
     } finally {
-      saveBtn.disabled = false;
-      saveBtn.innerHTML = '<span>✅</span> Save Theme';
+      this.renderThemes();
     }
   }
 
@@ -275,37 +418,48 @@ class ThemeManager {
     return new Promise((resolve) => {
       chrome.storage.local.get(['themeUrl'], (result) => {
         if (result.themeUrl) {
+          this.currentThemeUrl = result.themeUrl;
           this.selectedTheme = result.themeUrl;
-          // Update UI when themes are rendered
-          setTimeout(() => {
-            const card = document.querySelector(`[data-theme-url="${result.themeUrl}"]`);
-            if (card) {
-              card.classList.add('selected');
-              document.getElementById('saveBtn').disabled = false;
-            }
-          }, 100);
         }
         resolve();
       });
     });
   }
 
+  clearStatus() {
+    document.getElementById('statusArea').textContent = '';
+  }
+
+  showLoadErrors() {
+    if (this.loadErrors.length === 0) {
+      return;
+    }
+
+    this.showError(this.loadErrors.join('\n'));
+  }
+
   showLoading() {
     document.getElementById('themesGrid').innerHTML = `
             <div class="loading">
                 <div class="loading-spinner"></div>
-                <p>Loading themes...</p>
+                <p>${this.t('loadingThemes')}</p>
             </div>
         `;
   }
 
   showError(message) {
+    const statusArea = document.getElementById('statusArea');
+    statusArea.textContent = '';
+
     const errorDiv = document.createElement('div');
     errorDiv.className = 'error-message';
-    errorDiv.textContent = message;
-    document.getElementById('themesGrid').appendChild(errorDiv);
-
-    setTimeout(() => errorDiv.remove(), 5000);
+    message.split('\n').forEach((line, index) => {
+      if (index > 0) {
+        errorDiv.appendChild(document.createElement('br'));
+      }
+      errorDiv.appendChild(document.createTextNode(line));
+    });
+    statusArea.appendChild(errorDiv);
   }
 
   showSuccess(message) {
