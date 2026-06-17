@@ -23,6 +23,9 @@
   "refreshButton": {
     "message": "Refresh"
   },
+  "refreshingButton": {
+    "message": "Refreshing..."
+  },
   "saveThemeButton": {
     "message": "Save Theme"
   },
@@ -44,10 +47,10 @@
   "localBadge": {
     "message": "Local"
   },
-  "inUse": {
+  "themeInUseBadge": {
     "message": "In use"
   },
-  "saving": {
+  "themeSavingBadge": {
     "message": "Saving..."
   },
   "noPreviewAvailable": {

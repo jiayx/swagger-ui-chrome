@@ -23,6 +23,9 @@
   "refreshButton": {
     "message": "刷新"
   },
+  "refreshingButton": {
+    "message": "正在刷新..."
+  },
   "saveThemeButton": {
     "message": "保存主题"
   },
@@ -44,10 +47,10 @@
   "localBadge": {
     "message": "本地"
   },
-  "inUse": {
+  "themeInUseBadge": {
     "message": "当前使用"
   },
-  "saving": {
+  "themeSavingBadge": {
     "message": "正在保存..."
   },
   "noPreviewAvailable": {

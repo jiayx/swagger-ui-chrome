@@ -153,9 +153,8 @@
             background: var(--hover-bg);
         }
 
-        .btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
+        .btn[aria-busy="true"] .btn-icon {
+            animation: spin 0.8s linear infinite;
         }
 
         .themes-container {
@@ -433,7 +432,7 @@
             </div>
             <div class="button-group">
                 <button id="refreshBtn" class="btn btn-secondary">
-                    <span>🔄</span> <span data-i18n="refreshButton">Refresh</span>
+                    <span class="btn-icon">🔄</span> <span class="btn-label" data-i18n="refreshButton">Refresh</span>
                 </button>
             </div>
         </div>

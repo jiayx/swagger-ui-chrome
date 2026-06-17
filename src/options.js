@@ -11,6 +11,7 @@ class ThemeManager {
     this.currentFilter = 'all';
     this.searchQuery = '';
     this.loadErrors = [];
+    this.isLoadingThemes = false;
 
     // GitHub repositories configuration
     this.githubRepos = [
@@ -56,6 +57,14 @@ class ThemeManager {
     });
   }
 
+  setRefreshLoading(isLoading) {
+    const refreshBtn = document.getElementById('refreshBtn');
+    const label = refreshBtn.querySelector('.btn-label');
+
+    refreshBtn.toggleAttribute('aria-busy', isLoading);
+    label.textContent = this.t(isLoading ? 'refreshingButton' : 'refreshButton');
+  }
+
   async init() {
     this.localizePage();
     this.setupEventListeners();
@@ -87,15 +96,19 @@ class ThemeManager {
   }
 
   async loadThemes(options = {}) {
-    const { preserveContent = false, restoreScrollY } = options;
-    const refreshBtn = document.getElementById('refreshBtn');
+    if (this.isLoadingThemes) {
+      return;
+    }
 
+    const { preserveContent = false, restoreScrollY } = options;
     try {
+      this.isLoadingThemes = true;
+      this.setRefreshLoading(true);
+
       if (!preserveContent || this.themes.length === 0) {
         this.showLoading();
       }
 
-      refreshBtn.disabled = true;
       this.clearStatus();
       this.themes = [];
       this.loadErrors = [];
@@ -113,7 +126,7 @@ class ThemeManager {
       try {
         await this.loadGitHubThemes();
       } catch (error) {
-        console.error('Error loading GitHub themes:', error);
+        console.warn('Unable to load GitHub themes:', error);
         this.addLoadError(this.t('githubNetworkFailed'));
       }
 
@@ -124,7 +137,8 @@ class ThemeManager {
         requestAnimationFrame(() => window.scrollTo({ top: restoreScrollY }));
       }
     } finally {
-      refreshBtn.disabled = false;
+      this.isLoadingThemes = false;
+      this.setRefreshLoading(false);
     }
   }
 
@@ -162,7 +176,7 @@ class ThemeManager {
           });
         }
       } catch (error) {
-        console.error(`Error loading themes from ${config.owner}/${config.repo}:`, error);
+        console.warn(`Unable to load themes from ${config.owner}/${config.repo}:`, error);
         this.addLoadError(this.getGitHubApiErrorMessage(error));
       }
     }
@@ -306,9 +320,9 @@ class ThemeManager {
     const badges = [];
 
     if (isCurrent) {
-      badges.push(`<span class="theme-badge theme-badge-in-use">${this.t('inUse')}</span>`);
+      badges.push(`<span class="theme-badge theme-badge-in-use">${this.t('themeInUseBadge')}</span>`);
     } else if (isSelected) {
-      badges.push(`<span class="theme-badge theme-badge-saving">${this.t('saving')}</span>`);
+      badges.push(`<span class="theme-badge theme-badge-saving">${this.t('themeSavingBadge')}</span>`);
     }
 
     if (theme.source === 'local') {
@@ -373,12 +387,12 @@ class ThemeManager {
         this.showSuccess(this.t('themeSavedSuccess'));
         chrome.runtime.sendMessage({ type: 'setTheme', theme: css }, (response) => {
           if (chrome.runtime.lastError) {
-            console.info('Error sending message:', chrome.runtime.lastError.message);
+            console.info('Theme update message was not delivered:', chrome.runtime.lastError.message);
           }
         });
       }
     } catch (error) {
-      console.error('Error saving theme:', error);
+      console.warn('Unable to save theme:', error);
       this.selectedTheme = this.currentThemeUrl;
       this.showError(this.t('themeSaveFailed'));
     } finally {

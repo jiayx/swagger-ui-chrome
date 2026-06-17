@@ -23,6 +23,9 @@
   "refreshButton": {
     "message": "Обновить"
   },
+  "refreshingButton": {
+    "message": "Обновление..."
+  },
   "saveThemeButton": {
     "message": "Сохранить тему"
   },
@@ -44,10 +47,10 @@
   "localBadge": {
     "message": "Локально"
   },
-  "inUse": {
+  "themeInUseBadge": {
     "message": "Используется"
   },
-  "saving": {
+  "themeSavingBadge": {
     "message": "Сохранение..."
   },
   "noPreviewAvailable": {

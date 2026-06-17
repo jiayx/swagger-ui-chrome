@@ -65,8 +65,7 @@ A powerful Chrome extension that packages Swagger UI, allowing you to easily vie
    - **GitHub themes** - Dynamically loaded from GitHub repositories
    - Themes are fetched from configured repositories in real-time
 3. Preview themes with screenshots (when available)
-4. Click on a theme card to select it
-5. Click "Save Theme" to apply the selected theme
+4. Click a theme card to apply it immediately
 
 ## 🛠️ Development
 
@@ -101,8 +100,9 @@ swagger-ui-chrome/
 │   ├── options.html         # Theme settings page
 │   └── options.js           # Theme management logic
 ├── scripts/                 # Build and update scripts
-│   ├── fetch_assets.sh      # Fetch Swagger UI and themes
-│   └── update.sh            # Main update script
+│   ├── fetch_assets.sh      # Fetch the upstream Swagger UI distribution
+│   ├── update.sh            # Refresh Swagger UI assets and copy the custom initializer
+│   └── bundle.sh            # Package the extension as a zip file
 ├── _locales/                # Internationalization files
 │   ├── en/                  # English messages
 │   └── zh_CN/               # Chinese messages
@@ -114,16 +114,17 @@ swagger-ui-chrome/
 
 1. Make your changes to the source code
 2. Test locally by loading the unpacked extension
-3. Run update script to fetch the latest Swagger UI and themes:
+3. Run the update script to fetch the latest Swagger UI distribution:
    ```bash
    ./scripts/update.sh
    ```
 
    This script will:
    - Download the latest Swagger UI distribution
-   - Fetch theme collections from GitHub repositories
    - Clean up unnecessary files
    - Copy custom initialization script
+
+   Theme CSS files are not bundled by this script. They are loaded dynamically from the configured GitHub repositories on the options page.
 
 ### Contributing
 

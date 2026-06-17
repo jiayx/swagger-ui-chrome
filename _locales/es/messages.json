@@ -23,6 +23,9 @@
   "refreshButton": {
     "message": "Actualizar"
   },
+  "refreshingButton": {
+    "message": "Actualizando..."
+  },
   "saveThemeButton": {
     "message": "Guardar tema"
   },
@@ -44,10 +47,10 @@
   "localBadge": {
     "message": "Local"
   },
-  "inUse": {
+  "themeInUseBadge": {
     "message": "En uso"
   },
-  "saving": {
+  "themeSavingBadge": {
     "message": "Guardando..."
   },
   "noPreviewAvailable": {

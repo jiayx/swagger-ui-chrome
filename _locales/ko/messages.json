@@ -23,6 +23,9 @@
   "refreshButton": {
     "message": "새로고침"
   },
+  "refreshingButton": {
+    "message": "새로고침 중..."
+  },
   "saveThemeButton": {
     "message": "테마 저장"
   },
@@ -44,10 +47,10 @@
   "localBadge": {
     "message": "로컬"
   },
-  "inUse": {
+  "themeInUseBadge": {
     "message": "현재 사용 중"
   },
-  "saving": {
+  "themeSavingBadge": {
     "message": "저장 중..."
   },
   "noPreviewAvailable": {

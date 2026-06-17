@@ -65,8 +65,7 @@
    - **GitHub 主题** - 从 GitHub 仓库动态加载
    - 主题实时从配置的仓库获取
 3. 通过截图预览主题效果（如果可用）
-4. 点击主题卡片选择主题
-5. 点击「保存主题」应用所选主题
+4. 点击主题卡片即可立即应用主题
 
 ## 🛠️ 开发
 
@@ -101,8 +100,9 @@ swagger-ui-chrome/
 │   ├── options.html         # 主题设置页面
 │   └── options.js           # 主题管理逻辑
 ├── scripts/                 # 构建和更新脚本
-│   ├── fetch_assets.sh      # 获取 Swagger UI 和主题
-│   └── update.sh            # 主更新脚本主题
+│   ├── fetch_assets.sh      # 获取上游 Swagger UI 发行版
+│   ├── update.sh            # 刷新 Swagger UI 资源并复制自定义初始化脚本
+│   └── bundle.sh            # 将扩展打包为 zip 文件
 ├── _locales/                # 国际化文件
 │   ├── en/                  # 英文消息
 │   └── zh_CN/               # 中文消息
@@ -114,16 +114,17 @@ swagger-ui-chrome/
 
 1. 修改源代码
 2. 通过加载未打包扩展进行本地测试
-3. 运行更新脚本以获取最新的 Swagger UI 和主题：
+3. 运行更新脚本以获取最新的 Swagger UI 发行版：
    ```bash
    ./scripts/update.sh
    ```
 
    该脚本将会：
    - 下载最新的 Swagger UI 发行版
-   - 从 GitHub 仓库获取主题集合
    - 清理不必要的文件
    - 复制自定义初始化脚本
+
+   主题 CSS 不会由该脚本打包进项目，而是在选项页中从配置的 GitHub 仓库动态加载。
 
 ### 贡献代码
 

@@ -23,6 +23,9 @@
   "refreshButton": {
     "message": "रीफ्रेश करें"
   },
+  "refreshingButton": {
+    "message": "रीफ्रेश हो रहा है..."
+  },
   "saveThemeButton": {
     "message": "थीम सहेजें"
   },
@@ -44,10 +47,10 @@
   "localBadge": {
     "message": "स्थानीय"
   },
-  "inUse": {
+  "themeInUseBadge": {
     "message": "उपयोग में"
   },
-  "saving": {
+  "themeSavingBadge": {
     "message": "सहेजा जा रहा है..."
   },
   "noPreviewAvailable": {
