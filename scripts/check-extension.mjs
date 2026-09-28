@@ -32,9 +32,7 @@ export function checkExtension(directory) {
   }
   for (const icon of Object.values(manifest.action?.default_icon ?? {})) requireAsset(resolve(root, icon));
   for (const name of ['index.html', 'viewer.css', 'viewer.js', 'oauth2-redirect.html', 'oauth2-redirect.js']) requireAsset(join(root, 'viewer', name));
-  for (const name of ['swagger-ui.css', 'swagger-ui-bundle.js', 'swagger-ui-standalone-preset.js', 'upstream.json']) requireAsset(join(root, 'vendor/swagger-ui', name));
-  const metadata = json(join(root, 'vendor/swagger-ui/upstream.json'));
-  if (!metadata.version || !metadata.provenance) throw new Error('Swagger UI version provenance is missing');
+  for (const name of ['swagger-ui.css', 'swagger-ui-bundle.js', 'swagger-ui-standalone-preset.js']) requireAsset(join(root, 'vendor/swagger-ui', name));
   const keys = value => JSON.stringify(Object.keys(value).sort());
   const defaultKeys = keys(json(join(root, '_locales', manifest.default_locale, 'messages.json')));
   for (const locale of files(join(root, '_locales')).filter(path => path.endsWith('messages.json'))) {

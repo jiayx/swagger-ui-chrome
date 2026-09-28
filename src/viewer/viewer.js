@@ -54,22 +54,18 @@ document.addEventListener("DOMContentLoaded", () => {
 let urlStorageQueue = Promise.resolve();
 function readDocumentUrl() {
   const work = urlStorageQueue.then(async () => {
-    const local = await chrome.storage.local.get(['url', 'urlMigrationComplete']);
-    if (typeof local.url === 'string' || local.urlMigrationComplete) {
-      await chrome.storage.sync.remove('url').catch(() => {});
-      return typeof local.url === 'string' ? local.url : '';
+    let local = await chrome.storage.local.get(['url', 'urlMigrationComplete']);
+    if (typeof local.url !== 'string' && !local.urlMigrationComplete) {
+      const legacy = await chrome.storage.sync.get('url');
+      // Another viewer may have saved while we were reading sync storage.
+      local = await chrome.storage.local.get(['url', 'urlMigrationComplete']);
+      if (typeof local.url !== 'string' && !local.urlMigrationComplete) {
+        local = { url: typeof legacy.url === 'string' ? legacy.url : '', urlMigrationComplete: true };
+        await chrome.storage.local.set(local);
+      }
     }
-    const legacy = await chrome.storage.sync.get('url');
-    // Another viewer may have saved while we were reading sync storage.
-    const latest = await chrome.storage.local.get(['url', 'urlMigrationComplete']);
-    if (typeof latest.url === 'string' || latest.urlMigrationComplete) {
-      await chrome.storage.sync.remove('url').catch(() => {});
-      return typeof latest.url === 'string' ? latest.url : '';
-    }
-    const url = typeof legacy.url === 'string' ? legacy.url : '';
-    await chrome.storage.local.set({ url, urlMigrationComplete: true });
     await chrome.storage.sync.remove('url').catch(() => {});
-    return url;
+    return typeof local.url === 'string' ? local.url : '';
   }).catch(() => {
     console.warn('Unable to read document preference; using the default document.');
     return '';
@@ -109,7 +105,6 @@ function injectTheme(theme) {
   if (typeof theme === 'string' && theme.trim()) {
     const style = document.createElement('style');
     style.id = 'swagger-theme-css';
-    style.rel = 'stylesheet';
     style.textContent = theme;
     document.getElementsByTagName('head').item(0).appendChild(style);
     try {

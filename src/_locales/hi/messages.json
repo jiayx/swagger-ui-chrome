@@ -14,9 +14,6 @@
   "optionsTitle": {
     "message": "Swagger UI थीम सेटिंग्स"
   },
-  "optionsSubtitle": {
-    "message": "Swagger UI के लिए अपनी पसंदीदा थीम चुनें"
-  },
   "searchThemesPlaceholder": {
     "message": "थीम खोजें..."
   },
@@ -26,26 +23,17 @@
   "refreshingButton": {
     "message": "रीफ्रेश हो रहा है..."
   },
-  "saveThemeButton": {
-    "message": "थीम सहेजें"
-  },
   "savingButton": {
     "message": "सहेजा जा रहा है..."
   },
   "allThemes": {
     "message": "सभी थीम"
   },
-  "loadingThemes": {
-    "message": "थीम लोड हो रही हैं..."
-  },
   "noThemesFoundTitle": {
     "message": "कोई थीम नहीं मिली"
   },
   "noThemesFoundDescription": {
     "message": "अपनी खोज या फ़िल्टर शर्तें बदलकर देखें"
-  },
-  "localBadge": {
-    "message": "स्थानीय"
   },
   "themeInUseBadge": {
     "message": "उपयोग में"

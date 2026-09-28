@@ -14,9 +14,6 @@
   "optionsTitle": {
     "message": "Swagger UI · 外观设置"
   },
-  "optionsSubtitle": {
-    "message": "选择你喜欢的 Swagger UI 主题"
-  },
   "searchThemesPlaceholder": {
     "message": "搜索主题..."
   },
@@ -26,26 +23,17 @@
   "refreshingButton": {
     "message": "正在刷新..."
   },
-  "saveThemeButton": {
-    "message": "保存主题"
-  },
   "savingButton": {
     "message": "正在保存..."
   },
   "allThemes": {
     "message": "全部主题"
   },
-  "loadingThemes": {
-    "message": "正在加载主题..."
-  },
   "noThemesFoundTitle": {
     "message": "未找到主题"
   },
   "noThemesFoundDescription": {
     "message": "请尝试调整搜索词或筛选条件"
-  },
-  "localBadge": {
-    "message": "本地"
   },
   "themeInUseBadge": {
     "message": "当前使用"

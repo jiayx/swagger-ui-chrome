@@ -14,9 +14,6 @@
   "optionsTitle": {
     "message": "Swagger UI · Appearance"
   },
-  "optionsSubtitle": {
-    "message": "Choose your preferred theme for Swagger UI"
-  },
   "searchThemesPlaceholder": {
     "message": "Search themes..."
   },
@@ -26,26 +23,17 @@
   "refreshingButton": {
     "message": "Refreshing..."
   },
-  "saveThemeButton": {
-    "message": "Save Theme"
-  },
   "savingButton": {
     "message": "Saving..."
   },
   "allThemes": {
     "message": "All Themes"
   },
-  "loadingThemes": {
-    "message": "Loading themes..."
-  },
   "noThemesFoundTitle": {
     "message": "No themes found"
   },
   "noThemesFoundDescription": {
     "message": "Try adjusting your search or filter criteria"
-  },
-  "localBadge": {
-    "message": "Local"
   },
   "themeInUseBadge": {
     "message": "In use"

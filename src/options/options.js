@@ -1,8 +1,3 @@
-/**
-* Swagger UI Theme Settings Manager
-* Handles theme loading from GitHub repository
-*/
-
 class ThemeManager {
   constructor() {
     this.themes = [];
@@ -15,14 +10,12 @@ class ThemeManager {
     this.isSavingTheme = false;
     this.previewThemeUrl = null;
 
-    // GitHub repositories configuration
     this.githubRepos = [
       {
         owner: 'ilyamixaltik',
         repo: 'swagger-themes',
         branch: 'main',
         path: 'themes',
-        label: 'ilyamixaltik',
         screenshotPath: 'screenshots',
         screenshotFormat: 'jpeg'
       },
@@ -31,7 +24,6 @@ class ThemeManager {
         repo: 'swagger-ui-themes',
         branch: 'master',
         path: 'themes/3.x',
-        label: 'ostranme',
         screenshotPath: 'screenshots/3.x',
         screenshotNamePrefix: '3.x',
         screenshotFormat: 'png'
@@ -78,18 +70,15 @@ class ThemeManager {
   }
 
   setupEventListeners() {
-    // Refresh button
     document.getElementById('refreshBtn').addEventListener('click', () => {
-      this.loadThemes({ preserveContent: true, restoreScrollY: window.scrollY });
+      this.loadThemes({ restoreScrollY: window.scrollY });
     });
 
-    // Search input
     document.getElementById('searchInput').addEventListener('input', (e) => {
       this.searchQuery = e.target.value.toLowerCase().trim();
       this.renderThemes();
     });
 
-    // Filter tabs
     document.querySelectorAll('.filter-tab').forEach(tab => {
       tab.addEventListener('click', (e) => {
         document.querySelectorAll('.filter-tab').forEach(t => {
@@ -175,33 +164,22 @@ class ThemeManager {
     document.getElementById('themePreview').showModal();
   }
 
-  async loadThemes(options = {}) {
+  async loadThemes({ restoreScrollY } = {}) {
     if (this.isLoadingThemes) {
       return;
     }
 
-    const { preserveContent = false, restoreScrollY } = options;
     try {
       this.isLoadingThemes = true;
       this.setRefreshLoading(true);
 
-      if (!preserveContent || this.themes.length === 0) {
-        this.renderThemes();
-      }
-
       this.clearStatus();
       this.loadErrors = [];
 
-      // Load GitHub themes
-      try {
-        await this.loadGitHubThemes();
-      } catch (error) {
-        console.warn('Unable to load GitHub themes:', error);
-        this.addLoadError(this.t('githubNetworkFailed'));
-      }
+      await this.loadGitHubThemes();
 
       this.renderThemes();
-      this.showLoadErrors();
+      if (this.loadErrors.length) this.showError(this.loadErrors.join('\n'));
 
       if (Number.isFinite(restoreScrollY)) {
         requestAnimationFrame(() => window.scrollTo({ top: restoreScrollY }));
@@ -216,11 +194,9 @@ class ThemeManager {
     const previousThemes = this.themes;
     const results = await Promise.all(this.githubRepos.map(async config => {
       try {
-        // Fetch theme list from GitHub
         const apiUrl = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${config.path}?ref=${config.branch}`;
         const files = await this.fetchResource(apiUrl, 'json');
 
-        // Filter CSS files
         const themeFiles = files.filter(file => file.name.endsWith('.css'));
 
         return themeFiles.map(file => {
@@ -232,8 +208,6 @@ class ThemeManager {
           return {
             name: this.formatThemeName(themeName),
             source: config.owner,
-            repository: `${config.owner}/${config.repo}`,
-            repositoryLabel: config.label,
             url: themeUrl,
             description: `${config.owner}/${config.repo}`,
             screenshot: screenshotUrl
@@ -241,7 +215,8 @@ class ThemeManager {
         });
       } catch (error) {
         console.warn(`Unable to load themes from ${config.owner}/${config.repo}:`, error);
-        this.addLoadError(this.getGitHubApiErrorMessage(error));
+        const message = this.getGitHubApiErrorMessage(error);
+        if (!this.loadErrors.includes(message)) this.loadErrors.push(message);
         return previousThemes.filter(theme => theme.source === config.owner);
       }
     }));
@@ -259,40 +234,22 @@ class ThemeManager {
     try {
       const response = await fetch(url, { signal: controller.signal });
       if (!response.ok) {
-        throw this.createGitHubApiError(response, await this.parseResponseJson(response));
+        const error = new Error(`GitHub returned ${response.status}`);
+        error.githubApi = {
+          status: response.status,
+          body: await response.json().catch(() => null),
+          headers: {
+            retryAfter: response.headers.get('retry-after'),
+            rateLimitRemaining: response.headers.get('x-ratelimit-remaining'),
+            rateLimitReset: response.headers.get('x-ratelimit-reset')
+          }
+        };
+        throw error;
       }
       return await response[format]();
     } finally {
       clearTimeout(timeout);
     }
-  }
-
-  addLoadError(message) {
-    if (!this.loadErrors.includes(message)) {
-      this.loadErrors.push(message);
-    }
-  }
-
-  async parseResponseJson(response) {
-    try {
-      return await response.clone().json();
-    } catch (_) {
-      return null;
-    }
-  }
-
-  createGitHubApiError(response, body) {
-    const error = new Error(`GitHub API returned ${response.status}`);
-    error.githubApi = {
-      status: response.status,
-      body,
-      headers: {
-        retryAfter: response.headers.get('retry-after'),
-        rateLimitRemaining: response.headers.get('x-ratelimit-remaining'),
-        rateLimitReset: response.headers.get('x-ratelimit-reset')
-      }
-    };
-    return error;
   }
 
   getGitHubApiErrorMessage(error) {
@@ -349,7 +306,6 @@ class ThemeManager {
   }
 
   formatThemeName(name) {
-    // Convert theme name to title case and replace hyphens/underscores
     return name
     .replace(/[-_]/g, ' ')
     .replace(/\b\w/g, char => char.toUpperCase());
@@ -401,7 +357,7 @@ class ThemeManager {
     const isSaving = this.isSavingTheme && this.selectedTheme === theme.url;
     const badge = isCurrent || isSaving
       ? `<span class="theme-badge ${isSaving ? 'theme-badge-saving' : ''}">${this.t(isSaving ? 'themeSavingBadge' : 'themeInUseBadge')}</span>` : '';
-    const source = theme.source === 'built-in' ? this.t('builtInTheme') : theme.repositoryLabel || theme.source;
+    const source = theme.source === 'built-in' ? this.t('builtInTheme') : theme.source;
     return `<article class="theme-card ${isCurrent ? 'current' : ''} ${isSaving ? 'selected' : ''}">
       <button type="button" class="preview-button" data-theme-url="${escape(theme.url)}" aria-label="${escape(this.t('previewTheme') + ': ' + theme.name)}">
         ${theme.screenshot ? `<img class="theme-screenshot" src="${escape(theme.screenshot)}" alt="" loading="lazy">` : ''}
@@ -422,25 +378,17 @@ class ThemeManager {
     this.isSavingTheme = true;
     this.selectedTheme = themeUrl;
 
-    // Update UI
     this.renderThemes();
-    await this.saveTheme(themeUrl);
-  }
-
-  async saveTheme(themeUrl) {
-    if (!themeUrl) return;
 
     try {
       if (themeUrl === 'default') {
-        // Remove custom theme
-        await this.removeStoredTheme();
+        await chrome.storage.local.remove(['theme', 'themeUrl']);
         this.currentThemeUrl = 'default';
         this.selectedTheme = 'default';
         this.showSuccess(this.t('themeResetSuccess'));
       } else {
-        // Fetch and store theme CSS
         const css = await this.fetchResource(themeUrl, 'text');
-        await this.storeTheme(css, themeUrl);
+        await chrome.storage.local.set({ theme: css, themeUrl });
         this.currentThemeUrl = themeUrl;
         this.selectedTheme = themeUrl;
         this.showSuccess(this.t('themeSavedSuccess'));
@@ -453,34 +401,6 @@ class ThemeManager {
       this.isSavingTheme = false;
       this.renderThemes();
     }
-  }
-
-  async storeTheme(css, url) {
-    // Store in Chrome storage
-    return new Promise((resolve, reject) => {
-      chrome.storage.local.set({
-        theme: css,
-        themeUrl: url
-      }, () => {
-        if (chrome.runtime.lastError) {
-          reject(chrome.runtime.lastError);
-        } else {
-          resolve();
-        }
-      });
-    });
-  }
-
-  async removeStoredTheme() {
-    return new Promise((resolve, reject) => {
-      chrome.storage.local.remove(['theme', 'themeUrl'], () => {
-        if (chrome.runtime.lastError) {
-          reject(chrome.runtime.lastError);
-        } else {
-          resolve();
-        }
-      });
-    });
   }
 
   async loadSavedTheme() {
@@ -503,23 +423,6 @@ class ThemeManager {
     document.getElementById('statusArea').textContent = '';
     const previewStatus = document.getElementById('preview-status');
     if (previewStatus) previewStatus.textContent = '';
-  }
-
-  showLoadErrors() {
-    if (this.loadErrors.length === 0) {
-      return;
-    }
-
-    this.showError(this.loadErrors.join('\n'));
-  }
-
-  showLoading() {
-    document.getElementById('themesGrid').innerHTML = `
-            <div class="loading">
-                <div class="loading-spinner"></div>
-                <p>${this.t('loadingThemes')}</p>
-            </div>
-        `;
   }
 
   showError(message) {
@@ -548,7 +451,6 @@ class ThemeManager {
   }
 }
 
-// Initialize when DOM is ready
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => new ThemeManager());
 } else {

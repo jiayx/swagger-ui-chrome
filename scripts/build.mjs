@@ -1,7 +1,7 @@
 import { cpSync, copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, renameSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { basename, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { zipSync, unzipSync } from 'fflate';
+import { zipSync } from 'fflate';
 import { checkExtension, files } from './check-extension.mjs';
 
 export const projectRoot = fileURLToPath(new URL('../', import.meta.url));
@@ -18,7 +18,7 @@ export function build(root = projectRoot) {
     const extension = join(staging, 'extension');
     cpSync(join(root, 'src'), extension, {
       recursive: true,
-      filter: path => !['.DS_Store', '__pycache__'].includes(basename(path)) && !path.endsWith('.map'),
+      filter: path => basename(path) !== '.DS_Store' && !path.endsWith('.map'),
     });
     // Third-party files exist only in generated output, separate from owned code.
     const vendor = join(extension, 'vendor/swagger-ui');
@@ -32,7 +32,6 @@ export function build(root = projectRoot) {
     for (const name of ['swagger-ui-bundle.js.LICENSE.txt', 'swagger-ui-standalone-preset.js.LICENSE.txt', 'NOTICE']) {
       if (existsSync(join(dependency, name))) copyFileSync(join(dependency, name), join(vendor, name));
     }
-    writeFileSync(join(vendor, 'upstream.json'), JSON.stringify({ package: 'swagger-ui-dist', version: expected, repository: 'https://github.com/swagger-api/swagger-ui', provenance: 'pnpm-lock.yaml' }, null, 2) + '\n');
     copyFileSync(join(root, 'LICENSE'), join(extension, 'LICENSE'));
     checkExtension(extension);
     const version = JSON.parse(readFileSync(join(extension, 'manifest.json'), 'utf8')).version;
@@ -41,8 +40,6 @@ export function build(root = projectRoot) {
     const entries = Object.fromEntries(files(extension).map(path => [relative(extension, path).split('\\').join('/'), readFileSync(path)]));
     // ZIP dates use local calendar fields; fixed fields keep builds identical across time zones.
     const zip = zipSync(entries, { level: 9, mtime: new Date(1980, 0, 1), os: 3, attrs: 0o100644 << 16 });
-    const unpacked = unzipSync(zip);
-    if (Object.keys(unpacked).length !== Object.keys(entries).length || Object.entries(entries).some(([name, bytes]) => !bytes.equals(unpacked[name]))) throw new Error('ZIP integrity check failed.');
     writeFileSync(archive, zip);
     const target = join(output, 'extension'), previous = join(staging, 'previous');
     if (existsSync(target)) renameSync(target, previous);

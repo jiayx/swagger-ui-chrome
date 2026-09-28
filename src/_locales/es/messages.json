@@ -14,9 +14,6 @@
   "optionsTitle": {
     "message": "Configuración de temas de Swagger UI"
   },
-  "optionsSubtitle": {
-    "message": "Elige tu tema preferido para Swagger UI"
-  },
   "searchThemesPlaceholder": {
     "message": "Buscar temas..."
   },
@@ -26,26 +23,17 @@
   "refreshingButton": {
     "message": "Actualizando..."
   },
-  "saveThemeButton": {
-    "message": "Guardar tema"
-  },
   "savingButton": {
     "message": "Guardando..."
   },
   "allThemes": {
     "message": "Todos los temas"
   },
-  "loadingThemes": {
-    "message": "Cargando temas..."
-  },
   "noThemesFoundTitle": {
     "message": "No se encontraron temas"
   },
   "noThemesFoundDescription": {
     "message": "Prueba a ajustar la búsqueda o los filtros"
-  },
-  "localBadge": {
-    "message": "Local"
   },
   "themeInUseBadge": {
     "message": "En uso"

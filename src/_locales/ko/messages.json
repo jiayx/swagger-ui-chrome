@@ -14,9 +14,6 @@
   "optionsTitle": {
     "message": "Swagger UI 테마 설정"
   },
-  "optionsSubtitle": {
-    "message": "Swagger UI에 사용할 테마를 선택하세요"
-  },
   "searchThemesPlaceholder": {
     "message": "테마 검색..."
   },
@@ -26,26 +23,17 @@
   "refreshingButton": {
     "message": "새로고침 중..."
   },
-  "saveThemeButton": {
-    "message": "테마 저장"
-  },
   "savingButton": {
     "message": "저장 중..."
   },
   "allThemes": {
     "message": "모든 테마"
   },
-  "loadingThemes": {
-    "message": "테마를 불러오는 중..."
-  },
   "noThemesFoundTitle": {
     "message": "테마를 찾을 수 없음"
   },
   "noThemesFoundDescription": {
     "message": "검색어나 필터 조건을 조정해 보세요"
-  },
-  "localBadge": {
-    "message": "로컬"
   },
   "themeInUseBadge": {
     "message": "현재 사용 중"

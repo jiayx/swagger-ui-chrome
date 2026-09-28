@@ -11,8 +11,8 @@ function setup() {
     document: { readyState: 'loading', addEventListener() {} },
     console: { warn() {} }, AbortController, setTimeout, clearTimeout,
     chrome: { runtime: {}, storage: { local: {
-      set(values, callback) { Object.assign(stored, values); callback?.(); return Promise.resolve(); },
-      remove(keys, callback) { keys.forEach(key => delete stored[key]); callback(); }
+      async set(values) { Object.assign(stored, values); },
+      async remove(keys) { keys.forEach(key => delete stored[key]); }
     } } }
   });
   vm.runInContext(source + '\nglobalThis.Manager = ThemeManager;', context);

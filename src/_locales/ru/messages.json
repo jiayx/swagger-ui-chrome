@@ -14,9 +14,6 @@
   "optionsTitle": {
     "message": "Настройки темы Swagger UI"
   },
-  "optionsSubtitle": {
-    "message": "Выберите предпочитаемую тему для Swagger UI"
-  },
   "searchThemesPlaceholder": {
     "message": "Поиск тем..."
   },
@@ -26,26 +23,17 @@
   "refreshingButton": {
     "message": "Обновление..."
   },
-  "saveThemeButton": {
-    "message": "Сохранить тему"
-  },
   "savingButton": {
     "message": "Сохранение..."
   },
   "allThemes": {
     "message": "Все темы"
   },
-  "loadingThemes": {
-    "message": "Загрузка тем..."
-  },
   "noThemesFoundTitle": {
     "message": "Темы не найдены"
   },
   "noThemesFoundDescription": {
     "message": "Попробуйте изменить поисковый запрос или фильтры"
-  },
-  "localBadge": {
-    "message": "Локально"
   },
   "themeInUseBadge": {
     "message": "Используется"

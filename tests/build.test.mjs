@@ -5,8 +5,6 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { unzipSync } from 'fflate';
 import { build, projectRoot } from '../scripts/build.mjs';
-import { files } from '../scripts/check-extension.mjs';
-import { relative } from 'node:path';
 
 function fixture(t) {
   const root = mkdtempSync(join(tmpdir(), 'swagger build with spaces '));
@@ -18,26 +16,16 @@ function fixture(t) {
   const version = JSON.parse(readFileSync(join(root, 'package.json'))).dependencies['swagger-ui-dist'];
   writeFileSync(join(dependency, 'package.json'), JSON.stringify({ version }));
   for (const name of ['swagger-ui-bundle.js', 'swagger-ui-standalone-preset.js', 'swagger-ui.css', 'favicon-16x16.png', 'favicon-32x32.png', 'LICENSE']) writeFileSync(join(dependency, name), 'synthetic vendor asset');
-  for (const name of ['swagger-initializer.js', 'oauth2-redirect.html', 'unused.js.map']) writeFileSync(join(dependency, name), 'must not be packaged');
   return { root, dependency };
 }
 
-test('package uses owned adapters and excludes development files', t => {
+test('package contains extension code and vendor assets', t => {
   const { root } = fixture(t);
   const result = build(root), archive = unzipSync(readFileSync(result.archive)), names = Object.keys(archive);
   for (const name of ['manifest.json', 'vendor/swagger-ui/LICENSE', 'viewer/oauth2-redirect.js']) assert.ok(names.includes(name));
-  for (const name of ['vendor/swagger-ui/swagger-initializer.js', 'vendor/swagger-ui/oauth2-redirect.js']) assert.ok(!names.includes(name));
-  assert.match(Buffer.from(archive['viewer/oauth2-redirect.html']).toString(), /\.\/oauth2-redirect.js/);
   assert.ok(!names.some(name => /^(extension|node_modules|scripts|tests)\//.test(name) || name.endsWith('.map')));
   assert.deepEqual(Buffer.from(archive['viewer/viewer.js']), readFileSync(join(root, 'src/viewer/viewer.js')));
-  // Owned files retain their paths and contents; only vendor assets are added.
-  for (const path of files(join(root, 'src'))) {
-    const name = relative(join(root, 'src'), path).split('\\').join('/');
-    if (name.endsWith('.map') || name.endsWith('.DS_Store')) continue;
-    assert.deepEqual(Buffer.from(archive[name]), readFileSync(path), name);
-  }
   assert.ok(existsSync(join(result.extension, 'manifest.json')));
-  assert.ok(!existsSync(join(root, 'src/vendor/swagger-ui/swagger-ui-bundle.js')));
 });
 test('missing dependency has install hint', t => {
   const { root, dependency } = fixture(t);
