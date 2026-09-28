@@ -1,7 +1,7 @@
 # Swagger UI Chrome 扩展
 
 <div align="center">
-  <img src="swagger-ui/favicon-32x32.png" alt="Swagger UI Logo" width="128" height="128">
+  <img src="src/icons/icon-128.png" alt="Swagger UI Logo" width="128" height="128">
 
   [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/liacakmdhalagfjlfdofigfoiocghoej)](https://chrome.google.com/webstore/detail/swagger-ui/liacakmdhalagfjlfdofigfoiocghoej)
   [![License](https://img.shields.io/github/license/jiayx/swagger-ui-chrome)](LICENSE)
@@ -17,11 +17,11 @@
 ## ✨ 功能特点
 
 - 🚀 **即时访问** - 一键查看 Swagger/OpenAPI 文档
-- 🎨 **多主题支持** - 从多种内置主题中选择，或从 GitHub 加载自定义主题
-- 📁 **本地文件支持** - 打开本地的 JSON/YAML API 文档文件
+- 🎨 **多主题支持** - 使用默认主题，或从两个已配置的 GitHub 仓库选择主题
+- 📄 **JSON/YAML 文档** - 加载通过 HTTP/HTTPS 提供的文档；目前不支持直接导入本地文件
 - 🔗 **URL 支持** - 从任意 URL 加载 API 文档
 - 💾 **持久化设置** - 自动保存您的主题偏好设置
-- 🔒 **安全** - 在浏览器本地运行，仅需最小权限
+- 🔒 **浏览器扩展** - 使用存储和 HTTP/HTTPS 主机权限加载文档、调用接口
 
 ## 📦 安装方法
 
@@ -39,16 +39,17 @@
    cd swagger-ui-chrome
    ```
 
-2. 更新 Swagger UI 到最新版本：
+2. 安装锁定的依赖并构建：
    ```bash
-   ./scripts/update.sh
+   pnpm install --frozen-lockfile
+   pnpm build
    ```
 
 3. 在 Chrome 中加载扩展：
    - 打开 Chrome 并访问 `chrome://extensions/`
    - 在右上角启用「开发者模式」
    - 点击「加载已解压的扩展程序」
-   - 选择项目根目录
+   - 选择项目内的 `dist/extension/` 目录（不是源码目录）
 
 ## 🎯 使用方法
 
@@ -65,7 +66,8 @@
    - **GitHub 主题** - 从 GitHub 仓库动态加载
    - 主题实时从配置的仓库获取
 3. 通过截图预览主题效果（如果可用）
-4. 点击主题卡片即可立即应用主题
+4. 点击预览图查看大图，不会切换当前主题
+5. 点击「使用主题」应用；也可在当前主题区域点击「恢复默认」
 
 ## 🛠️ 开发
 
@@ -81,50 +83,84 @@
 
 ### 前置要求
 
-- Git
+- Node.js 24+、pnpm 12.3.4
 - Chrome 浏览器
-- Chrome 扩展基础知识
 
 ### 项目结构
 
 ```
 swagger-ui-chrome/
-├── swagger-ui/              # Swagger UI 发行版文件
-│   ├── index.html           # 主页面
-│   ├── swagger-ui-bundle.js # Swagger UI 核心包
-│   ├── swagger-ui.css       # Swagger UI 样式
-│   └── swagger-initializer.js # 自定义初始化脚本
-├── src/                     # 扩展源代码
-│   ├── background.js        # Service Worker（扩展后台脚本）
-│   ├── swagger-initializer.js # Swagger UI 初始化模板
-│   ├── options.html         # 主题设置页面
-│   └── options.js           # 主题管理逻辑
-├── scripts/                 # 构建和更新脚本
-│   ├── fetch_assets.sh      # 获取上游 Swagger UI 发行版
-│   ├── update.sh            # 刷新 Swagger UI 资源并复制自定义初始化脚本
-│   └── bundle.sh            # 将扩展打包为 zip 文件
-├── _locales/                # 国际化文件
-│   ├── en/                  # 英文消息
-│   └── zh_CN/               # 中文消息
-├── manifest.json            # 扩展清单文件（V3版本）
-└── LICENSE                  # MIT 许可证
+├── src/                         # 自有扩展源码，结构直接对应安装包
+│   ├── manifest.json            # 浏览器要求的扩展清单
+│   ├── background.js            # 工具栏点击入口
+│   ├── _locales/                # Chrome 规定的多语言目录
+│   ├── icons/                   # 扩展和页面共用的品牌图标
+│   ├── options/                 # 设置功能的完整实现
+│   │   ├── index.html
+│   │   ├── options.css
+│   │   ├── options.js
+│   │   └── default-theme.png    # 仅设置页使用的预览图
+│   └── viewer/                  # 接口浏览、执行与授权
+│       ├── index.html
+│       ├── viewer.css
+│       ├── viewer.js
+│       ├── oauth2-redirect.html
+│       └── oauth2-redirect.js
+├── scripts/                     # Node 开发工具，不打进扩展
+│   ├── build.mjs                # 组装并生成 ZIP
+│   ├── check.mjs                # 校验与测试入口
+│   ├── check-extension.mjs      # 清单、资源引用、多语言校验
+│   └── preview/                 # 本地服务器、示例 API、Chrome API 模拟
+├── tests/                       # 运行逻辑、构建、预览回归测试
+├── package.json
+├── pnpm-lock.yaml
+├── node_modules/                # 安装的第三方依赖，不进入 Git
+└── dist/                        # 生成产物，不进入 Git
+    ├── extension/               # Chrome 加载此目录
+    │   ├── …                    # src/ 的同路径副本
+    │   └── vendor/swagger-ui/   # 构建时提取的第三方 JS、CSS、许可证
+    └── swagger-ui-chrome-v*.zip  # 商店安装包
 ```
 
-### 从源码构建
+目录按维护边界划分：同一功能的 HTML、CSS、JS 和专用图片放在一起，公共目录只保留确实共用的图标。单个后台入口直接放根部；不为一个文件增加层级，也不预建空的 `components/`、`services/` 或 `utils/`。开发工具和测试独立于运行源码。
 
-1. 修改源代码
-2. 通过加载未打包扩展进行本地测试
-3. 运行更新脚本以获取最新的 Swagger UI 发行版：
-   ```bash
-   ./scripts/update.sh
-   ```
+构建保留 `src/` 内的相对路径，不重写源码引用、不维护额外的路径映射。`vendor/` 只属于构建产物，不能在 `src/` 中手工添加第三方文件。源码缺少这些依赖资源，Chrome 必须加载 `dist/extension/`。
 
-   该脚本将会：
-   - 下载最新的 Swagger UI 发行版
-   - 清理不必要的文件
-   - 复制自定义初始化脚本
 
-   主题 CSS 不会由该脚本打包进项目，而是在选项页中从配置的 GitHub 仓库动态加载。
+### 本地开发与打包
+
+```bash
+pnpm install --frozen-lockfile
+pnpm check
+pnpm build
+pnpm preview
+```
+
+`pnpm build` 从已安装的 `swagger-ui-dist` 中复制所需资源，与自有源码组装，不联网下载或自动升级。缺少依赖或版本不一致时会报错。构建先在临时目录校验，通过后替换输出；失败时保留上次成功产物。相同输入生成相同 ZIP。构建、校验、测试和预览全部由 Node.js 运行。
+
+开发时修改 `src/`，重新执行 `pnpm build`，再刷新扩展及其页面。不要编辑 `dist/extension/`，下次构建会覆盖。预览读取构建产物：打开 `http://127.0.0.1:8765/options/index.html?lang=zh_CN`。预览的 Chrome API 是浏览器存储模拟，不能代替实际扩展权限测试。
+
+主题 CSS 仍从配置的 GitHub 仓库动态加载。已有主题和主题列表在本地缓存；恢复默认会同步到已打开的文档页。文档 URL 仅在本地保存，旧同步 URL 成功迁移后会从同步存储移除。
+
+### 升级 Swagger UI
+
+当前固定 `swagger-ui-dist` **5.33.0**。升级时明确指定目标版本：
+
+```bash
+pnpm add --save-exact swagger-ui-dist@<version>
+pnpm check
+pnpm build
+```
+
+提交自己的代码、`package.json`、`pnpm-lock.yaml` 和构建配置；不提交下载的 JS/CSS 或安装包。
+
+### Swagger UI 适配边界
+
+构建只从依赖提取核心 JS、基础 CSS、图标及许可证文件。上游入口和 OAuth 回调不会覆盖扩展自己的实现。预览页 HTML、样式、初始化和 OAuth 回调统一位于 `src/viewer/`。构建直接复制源码目录结构，第三方资源单独放在 `vendor/swagger-ui/`。OAuth 回调路径现为 `viewer/oauth2-redirect.html`；如果服务商配置过旧回调路径的白名单，需要同步更新。Swagger 公共远程校验已关闭。
+
+构建产物中的 `vendor/swagger-ui/upstream.json` 记录 npm 包名、版本和锁文件来源；精确的下载完整性信息以 `pnpm-lock.yaml` 为准。
+
+本地预览提供 **local-test → Basic Auth** 接口，测试账号 `demo / demo`，请求仅发往本机。升级后检查文档加载、主题切换、Try it out、授权弹窗及真实 OAuth 回调；Chrome 扩展权限和真实服务商登录仍需实际扩展环境验证。
 
 ### 贡献代码
 

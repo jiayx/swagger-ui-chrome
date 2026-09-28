@@ -1,0 +1,20 @@
+{
+  "name": "swagger-ui-chrome",
+  "private": true,
+  "packageManager": "pnpm@12.3.4",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/check.mjs",
+    "preview": "pnpm build && node scripts/preview/server.mjs"
+  },
+  "dependencies": {
+    "swagger-ui-dist": "5.33.0"
+  },
+  "devDependencies": {
+    "fflate": "0.8.3",
+    "parse5": "8.0.1"
+  }
+}

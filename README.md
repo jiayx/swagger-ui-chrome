@@ -1,7 +1,7 @@
 # Swagger UI Chrome Extension
 
 <div align="center">
-  <img src="swagger-ui/favicon-32x32.png" alt="Swagger UI Logo" width="128" height="128">
+  <img src="src/icons/icon-128.png" alt="Swagger UI Logo" width="128" height="128">
 
   [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/liacakmdhalagfjlfdofigfoiocghoej)](https://chrome.google.com/webstore/detail/swagger-ui/liacakmdhalagfjlfdofigfoiocghoej)
   [![License](https://img.shields.io/github/license/jiayx/swagger-ui-chrome)](LICENSE)
@@ -17,11 +17,11 @@ A powerful Chrome extension that packages Swagger UI, allowing you to easily vie
 ## ✨ Features
 
 - 🚀 **Instant Access** - View Swagger/OpenAPI documentation with one click
-- 🎨 **Multiple Themes** - Choose from various built-in themes or load custom themes from GitHub
-- 📁 **Local File Support** - Open local JSON/YAML API documentation files
+- 🎨 **Multiple Themes** - Use the default theme or select a theme from two configured GitHub repositories
+- 📄 **JSON/YAML Documents** - Load documents served over HTTP/HTTPS; direct local file import is not currently supported
 - 🔗 **URL Support** - Load API documentation from any URL
 - 💾 **Persistent Settings** - Your theme preferences are saved automatically
-- 🔒 **Secure** - Runs locally in your browser with minimal permissions
+- 🔒 **Browser Extension** - Uses storage and HTTP/HTTPS host permissions to load documents and call APIs
 
 ## 📦 Installation
 
@@ -39,16 +39,17 @@ A powerful Chrome extension that packages Swagger UI, allowing you to easily vie
    cd swagger-ui-chrome
    ```
 
-2. Update Swagger UI to the latest version:
+2. Install the locked dependencies and build:
    ```bash
-   ./scripts/update.sh
+   pnpm install --frozen-lockfile
+   pnpm build
    ```
 
 3. Load the extension in Chrome:
    - Open Chrome and navigate to `chrome://extensions/`
    - Enable "Developer mode" in the top right
    - Click "Load unpacked"
-   - Select the project root directory
+   - Select `dist/extension/` inside the project, not the source directory
 
 ## 🎯 Usage
 
@@ -65,7 +66,8 @@ A powerful Chrome extension that packages Swagger UI, allowing you to easily vie
    - **GitHub themes** - Dynamically loaded from GitHub repositories
    - Themes are fetched from configured repositories in real-time
 3. Preview themes with screenshots (when available)
-4. Click a theme card to apply it immediately
+4. Click a preview image to inspect it without changing the active theme
+5. Choose **Use theme** to apply it, or **Restore default** in the current-theme panel
 
 ## 🛠️ Development
 
@@ -81,50 +83,84 @@ This extension packages Swagger UI as a Chrome extension with the following arch
 
 ### Prerequisites
 
-- Git
+- Node.js 24+, pnpm 12.3.4
 - Chrome browser
-- Basic knowledge of Chrome extensions
 
-### Project Structure
+### Project structure
 
 ```
 swagger-ui-chrome/
-├── swagger-ui/              # Swagger UI distribution files
-│   ├── index.html           # Main Swagger UI page
-│   ├── swagger-ui-bundle.js # Swagger UI core bundle
-│   ├── swagger-ui.css       # Swagger UI styles
-│   └── swagger-initializer.js # Custom initialization
-├── src/                     # Extension source code
-│   ├── background.js        # Service worker for extension
-│   ├── swagger-initializer.js # Template for Swagger UI initialization
-│   ├── options.html         # Theme settings page
-│   └── options.js           # Theme management logic
-├── scripts/                 # Build and update scripts
-│   ├── fetch_assets.sh      # Fetch the upstream Swagger UI distribution
-│   ├── update.sh            # Refresh Swagger UI assets and copy the custom initializer
-│   └── bundle.sh            # Package the extension as a zip file
-├── _locales/                # Internationalization files
-│   ├── en/                  # English messages
-│   └── zh_CN/               # Chinese messages
-├── manifest.json            # Extension manifest (V3)
-└── LICENSE                  # MIT License
+├── src/                         # Owned extension source; mirrors the package
+│   ├── manifest.json            # Browser extension manifest
+│   ├── background.js            # Toolbar action entry
+│   ├── _locales/                # Chrome-required localization directory
+│   ├── icons/                   # Shared extension and page branding
+│   ├── options/                 # Complete settings feature
+│   │   ├── index.html
+│   │   ├── options.css
+│   │   ├── options.js
+│   │   └── default-theme.png    # Preview image used only by settings
+│   └── viewer/                  # API browsing, execution and authorization
+│       ├── index.html
+│       ├── viewer.css
+│       ├── viewer.js
+│       ├── oauth2-redirect.html
+│       └── oauth2-redirect.js
+├── scripts/                     # Node development tools; never packaged
+│   ├── build.mjs                # Assemble the extension and ZIP
+│   ├── check.mjs                # Validation and test entry
+│   ├── check-extension.mjs      # Manifest, asset and locale checks
+│   └── preview/                 # Local server, demo API and Chrome API shim
+├── tests/                       # Runtime, build and preview regression tests
+├── package.json
+├── pnpm-lock.yaml
+├── node_modules/                # Installed dependencies; ignored by Git
+└── dist/                        # Generated output; ignored by Git
+    ├── extension/               # Load this directory in Chrome
+    │   ├── …                    # Same relative paths as src/
+    │   └── vendor/swagger-ui/   # Third-party assets and licenses copied at build
+    └── swagger-ui-chrome-v*.zip  # Store package
 ```
 
-### Building from Source
+Directories follow maintenance boundaries: each feature owns its HTML, CSS, JavaScript and dedicated images. Only shared branding belongs in the common icons directory. A single background entry stays at the root; there are no placeholder components, services or utility layers. Development tools and tests stay outside runtime source.
 
-1. Make your changes to the source code
-2. Test locally by loading the unpacked extension
-3. Run the update script to fetch the latest Swagger UI distribution:
-   ```bash
-   ./scripts/update.sh
-   ```
+The build preserves relative paths from `src/` without rewriting references or maintaining a second path mapping. `vendor/` belongs only to generated output, never to owned source. Chrome must load `dist/extension/` because source alone does not include dependency assets.
 
-   This script will:
-   - Download the latest Swagger UI distribution
-   - Clean up unnecessary files
-   - Copy custom initialization script
 
-   Theme CSS files are not bundled by this script. They are loaded dynamically from the configured GitHub repositories on the options page.
+### Local development and packaging
+
+```bash
+pnpm install --frozen-lockfile
+pnpm check
+pnpm build
+pnpm preview
+```
+
+The builder combines owned source with selected assets from the installed `swagger-ui-dist` package. It does not download or upgrade dependencies. Missing or mismatched dependencies fail clearly. Output is staged and validated before replacing the previous successful build; identical inputs produce identical ZIPs. Build, validation, tests and preview all run on Node.js.
+
+Edit `src/`, rebuild, then reload the extension and its open pages. Do not edit `dist/extension/`: it is replaced on each build. Preview serves the generated extension at `http://127.0.0.1:8765/options/index.html` (add `?lang=zh_CN` for Chinese), using simulated Chrome APIs.
+
+Theme CSS still loads dynamically from the configured GitHub repositories. Theme selections and catalogs are cached locally. Resets propagate to open document tabs. Document URLs are stored locally; legacy synced URLs are removed only after successful local migration.
+
+### Updating Swagger UI
+
+The project pins `swagger-ui-dist` **5.33.0**. Upgrade explicitly:
+
+```bash
+pnpm add --save-exact swagger-ui-dist@<version>
+pnpm check
+pnpm build
+```
+
+Commit owned source, `package.json`, `pnpm-lock.yaml` and build configuration, not downloaded bundles or ZIPs.
+
+### Swagger UI integration boundary
+
+The build copies only core bundles, base CSS, icons and license notices from the dependency. Upstream entry pages and OAuth callbacks never replace extension-owned adapters. Viewer HTML, styles, initialization and OAuth callbacks live together in `src/viewer/`. The build copies the source layout directly into the extension and places third-party assets in `vendor/swagger-ui/`. The OAuth callback path is now `viewer/oauth2-redirect.html`; update any provider redirect allowlist that used the old path. The public remote Swagger validator is disabled.
+
+Generated `vendor/swagger-ui/upstream.json` records the npm package, version and lockfile provenance. Exact dependency integrity information is in `pnpm-lock.yaml`.
+
+The local preview includes a **local-test → Basic Auth** endpoint with disposable `demo / demo` credentials, sent only to localhost. Check document loading, theme changes, Try it out, authorization dialogs and OAuth callbacks after upgrades. Actual extension permissions and real OAuth providers still require testing in a loaded Chrome extension.
 
 ### Contributing
 

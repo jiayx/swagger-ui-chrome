@@ -1,0 +1,193 @@
+{
+  "extDescription": {
+    "message": "在浏览器中直接查看和测试 OpenAPI/Swagger API 文档，支持多种精美主题。专为 API 开发者和测试人员打造。"
+  },
+  "extName": {
+    "message": "Swagger UI - API 文档查看器"
+  },
+  "extShortName": {
+    "message": "Swagger UI"
+  },
+  "extDefaultTitle": {
+    "message": "打开 Swagger UI"
+  },
+  "optionsTitle": {
+    "message": "Swagger UI · 外观设置"
+  },
+  "optionsSubtitle": {
+    "message": "选择你喜欢的 Swagger UI 主题"
+  },
+  "searchThemesPlaceholder": {
+    "message": "搜索主题..."
+  },
+  "refreshButton": {
+    "message": "刷新"
+  },
+  "refreshingButton": {
+    "message": "正在刷新..."
+  },
+  "saveThemeButton": {
+    "message": "保存主题"
+  },
+  "savingButton": {
+    "message": "正在保存..."
+  },
+  "allThemes": {
+    "message": "全部主题"
+  },
+  "loadingThemes": {
+    "message": "正在加载主题..."
+  },
+  "noThemesFoundTitle": {
+    "message": "未找到主题"
+  },
+  "noThemesFoundDescription": {
+    "message": "请尝试调整搜索词或筛选条件"
+  },
+  "localBadge": {
+    "message": "本地"
+  },
+  "themeInUseBadge": {
+    "message": "当前使用"
+  },
+  "themeSavingBadge": {
+    "message": "正在保存..."
+  },
+  "noPreviewAvailable": {
+    "message": "暂无预览"
+  },
+  "themeResetSuccess": {
+    "message": "主题已重置为默认"
+  },
+  "themeSavedSuccess": {
+    "message": "主题已保存"
+  },
+  "themeSaveFailed": {
+    "message": "保存主题失败，请重试。"
+  },
+  "githubNetworkFailed": {
+    "message": "访问 GitHub API 失败，请检查网络连接后重试。"
+  },
+  "githubRateLimitPrimary": {
+    "message": "GitHub API 访问次数已达上限。未登录访问通常共享当前 IP 的额度，请在 $reset_at$ 后重试，或登录 GitHub / 配置 Token 后再试。",
+    "placeholders": {
+      "reset_at": {
+        "content": "$1"
+      }
+    }
+  },
+  "githubRateLimitSecondary": {
+    "message": "GitHub 暂时限制了过于频繁的请求，请在 $wait_time$ 后重试。",
+    "placeholders": {
+      "wait_time": {
+        "content": "$1"
+      }
+    }
+  },
+  "githubRateLimitGeneric": {
+    "message": "GitHub API 请求过于频繁，已被临时限制。请稍后重试，或登录 GitHub 后再试。"
+  },
+  "githubAuthInvalid": {
+    "message": "GitHub 授权无效或已过期，请重新登录或更新访问令牌。"
+  },
+  "githubPermissionDenied": {
+    "message": "GitHub 拒绝了本次请求，可能是权限不足、仓库不可访问或访问令牌缺少权限。"
+  },
+  "seconds": {
+    "message": "$count$ 秒",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "aboutOneMinute": {
+    "message": "约 1 分钟"
+  },
+  "later": {
+    "message": "稍后"
+  },
+  "defaultTheme": {
+    "message": "默认主题"
+  },
+  "defaultThemeDescription": {
+    "message": "Swagger UI 原始样式"
+  },
+  "skipToContent": {
+    "message": "跳转到内容"
+  },
+  "settingsLabel": {
+    "message": "设置"
+  },
+  "openApiViewer": {
+    "message": "打开接口文档"
+  },
+  "personalizeLabel": {
+    "message": "让每一次阅读，都更舒适"
+  },
+  "appearance": {
+    "message": "外观设置"
+  },
+  "appearanceIntro": {
+    "message": "选择适合自己的主题，让接口文档更清晰、更易读。"
+  },
+  "autoSaveNote": {
+    "message": "修改后自动保存"
+  },
+  "currentTheme": {
+    "message": "当前主题"
+  },
+  "resetDefault": {
+    "message": "恢复默认"
+  },
+  "appliesToOpenTabs": {
+    "message": "同步应用到已打开的文档页"
+  },
+  "themeLibrary": {
+    "message": "主题库"
+  },
+  "libraryHint": {
+    "message": "先看看效果，再选择喜欢的主题。"
+  },
+  "themeFooter": {
+    "message": "一点改变，让工作更舒适。"
+  },
+  "themeCredit": {
+    "message": "社区提供主题，Swagger UI 提供文档体验。"
+  },
+  "themePreviewLabel": {
+    "message": "主题预览"
+  },
+  "closePreview": {
+    "message": "关闭"
+  },
+  "useTheme": {
+    "message": "使用主题"
+  },
+  "previewTheme": {
+    "message": "查看预览"
+  },
+  "previewDisclaimer": {
+    "message": "这里展示的是主题示例，切换主题不会改变你的文档内容。"
+  },
+  "savedTheme": {
+    "message": "已保存的主题"
+  },
+  "builtInTheme": {
+    "message": "内置 · Swagger UI"
+  },
+  "clearFilters": {
+    "message": "清除筛选"
+  },
+  "themeResultsCount": {
+    "message": "显示 $visible$ / $total$ 个主题",
+    "placeholders": {
+      "visible": {
+        "content": "$1"
+      },
+      "total": {
+        "content": "$2"
+      }
+    }
+  }
+}

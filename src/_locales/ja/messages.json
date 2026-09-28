@@ -1,0 +1,193 @@
+{
+  "extDescription": {
+    "message": "ブラウザで直接OpenAPI/Swagger APIドキュメントを表示・テストできます。美しいテーマで、API開発者やテスター向けに最適です。"
+  },
+  "extName": {
+    "message": "Swagger UI - APIドキュメントビューア"
+  },
+  "extShortName": {
+    "message": "Swagger UI"
+  },
+  "extDefaultTitle": {
+    "message": "Swagger UIを開く"
+  },
+  "optionsTitle": {
+    "message": "Swagger UI テーマ設定"
+  },
+  "optionsSubtitle": {
+    "message": "Swagger UI で使用するテーマを選択してください"
+  },
+  "searchThemesPlaceholder": {
+    "message": "テーマを検索..."
+  },
+  "refreshButton": {
+    "message": "更新"
+  },
+  "refreshingButton": {
+    "message": "更新中..."
+  },
+  "saveThemeButton": {
+    "message": "テーマを保存"
+  },
+  "savingButton": {
+    "message": "保存中..."
+  },
+  "allThemes": {
+    "message": "すべてのテーマ"
+  },
+  "loadingThemes": {
+    "message": "テーマを読み込み中..."
+  },
+  "noThemesFoundTitle": {
+    "message": "テーマが見つかりません"
+  },
+  "noThemesFoundDescription": {
+    "message": "検索条件またはフィルターを調整してください"
+  },
+  "localBadge": {
+    "message": "ローカル"
+  },
+  "themeInUseBadge": {
+    "message": "使用中"
+  },
+  "themeSavingBadge": {
+    "message": "保存中..."
+  },
+  "noPreviewAvailable": {
+    "message": "プレビューはありません"
+  },
+  "themeResetSuccess": {
+    "message": "テーマをデフォルトに戻しました"
+  },
+  "themeSavedSuccess": {
+    "message": "テーマを保存しました"
+  },
+  "themeSaveFailed": {
+    "message": "テーマを保存できませんでした。もう一度お試しください。"
+  },
+  "githubNetworkFailed": {
+    "message": "GitHub API にアクセスできませんでした。ネットワーク接続を確認して、もう一度お試しください。"
+  },
+  "githubRateLimitPrimary": {
+    "message": "GitHub API のレート制限に達しました。未認証のリクエストは通常、現在の IP のクォータを共有します。$reset_at$ 以降に再試行するか、GitHub にサインイン / トークンを設定してください。",
+    "placeholders": {
+      "reset_at": {
+        "content": "$1"
+      }
+    }
+  },
+  "githubRateLimitSecondary": {
+    "message": "GitHub が頻繁なリクエストを一時的に制限しました。$wait_time$ 後に再試行してください。",
+    "placeholders": {
+      "wait_time": {
+        "content": "$1"
+      }
+    }
+  },
+  "githubRateLimitGeneric": {
+    "message": "GitHub API リクエストが一時的にレート制限されています。後でもう一度試すか、GitHub にサインインしてください。"
+  },
+  "githubAuthInvalid": {
+    "message": "GitHub の認証が無効または期限切れです。再度サインインするか、アクセストークンを更新してください。"
+  },
+  "githubPermissionDenied": {
+    "message": "GitHub がリクエストを拒否しました。リポジトリにアクセスできないか、トークンに必要な権限がない可能性があります。"
+  },
+  "seconds": {
+    "message": "$count$ 秒",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "aboutOneMinute": {
+    "message": "約 1 分"
+  },
+  "later": {
+    "message": "後ほど"
+  },
+  "defaultTheme": {
+    "message": "デフォルト"
+  },
+  "defaultThemeDescription": {
+    "message": "Swagger UI の標準スタイル"
+  },
+  "skipToContent": {
+    "message": "本文へスキップ"
+  },
+  "settingsLabel": {
+    "message": "設定"
+  },
+  "openApiViewer": {
+    "message": "API ドキュメントを開く"
+  },
+  "personalizeLabel": {
+    "message": "自分に合ったワークスペースに"
+  },
+  "appearance": {
+    "message": "外観"
+  },
+  "appearanceIntro": {
+    "message": "API ドキュメントが読みやすくなるテーマを選びましょう。"
+  },
+  "autoSaveNote": {
+    "message": "変更は自動保存されます"
+  },
+  "currentTheme": {
+    "message": "現在のテーマ"
+  },
+  "resetDefault": {
+    "message": "標準に戻す"
+  },
+  "appliesToOpenTabs": {
+    "message": "開いているすべての API ドキュメントに適用"
+  },
+  "themeLibrary": {
+    "message": "テーマライブラリ"
+  },
+  "libraryHint": {
+    "message": "プレビューを見て、お好みのテーマを選べます。"
+  },
+  "themeFooter": {
+    "message": "小さな変更で、より快適な作業環境へ。"
+  },
+  "themeCredit": {
+    "message": "Swagger UI のコミュニティテーマ。"
+  },
+  "themePreviewLabel": {
+    "message": "テーマのプレビュー"
+  },
+  "closePreview": {
+    "message": "閉じる"
+  },
+  "useTheme": {
+    "message": "テーマを使用"
+  },
+  "previewTheme": {
+    "message": "プレビュー"
+  },
+  "previewDisclaimer": {
+    "message": "表示例です。ドキュメントの内容は変わりません。"
+  },
+  "savedTheme": {
+    "message": "保存済みのテーマ"
+  },
+  "builtInTheme": {
+    "message": "標準 · Swagger UI"
+  },
+  "clearFilters": {
+    "message": "フィルターを解除"
+  },
+  "themeResultsCount": {
+    "message": "$total$ 件中 $visible$ 件のテーマ",
+    "placeholders": {
+      "visible": {
+        "content": "$1"
+      },
+      "total": {
+        "content": "$2"
+      }
+    }
+  }
+}

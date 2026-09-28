@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Swagger UI · Appearance</title>
+  <link rel="icon" href="../icons/icon-32.png">
+  <link rel="stylesheet" href="./options.css">
+</head>
+<body>
+  <a class="skip-link" href="#main" data-i18n="skipToContent">Skip to content</a>
+  <header class="app-header">
+    <div class="header-inner">
+      <a class="brand" href="../viewer/index.html" aria-label="Swagger UI"><img src="../icons/icon-32.png" alt=""><span>Swagger <span class="brand-light">UI</span></span></a>
+      <span class="header-divider" aria-hidden="true"></span>
+      <span class="header-location" data-i18n="settingsLabel">Settings</span>
+      <a class="open-workspace" href="../viewer/index.html" data-i18n="openApiViewer">Open API viewer</a>
+    </div>
+  </header>
+  <main id="main" class="page" tabindex="-1">
+    <section class="page-heading">
+      <div><p class="eyebrow" data-i18n="personalizeLabel">YOUR WORKSPACE, YOUR WAY</p><h1 data-i18n="appearance">Appearance</h1><p class="intro" data-i18n="appearanceIntro">Find a theme that makes your API documentation feel like home.</p></div>
+      <span class="auto-save-note" data-i18n="autoSaveNote">Changes saved automatically</span>
+    </section>
+    <section class="current-theme" aria-labelledby="current-label">
+      <div class="current-preview"><img id="current-theme-image" src="./default-theme.png" alt=""><span id="current-preview-fallback" hidden data-i18n="noPreviewAvailable">No preview available</span></div>
+      <div class="current-details"><div class="current-heading"><span id="current-label" class="eyebrow" data-i18n="currentTheme">CURRENT THEME</span><span class="live-badge" data-i18n="themeInUseBadge">In use</span></div><h2 id="current-theme-name" data-i18n="defaultTheme">Default</h2><p id="current-theme-description" data-i18n="defaultThemeDescription">Original Swagger UI appearance</p></div>
+      <div class="current-actions"><button id="resetThemeBtn" type="button" class="button secondary" data-i18n="resetDefault">Restore default</button><span data-i18n="appliesToOpenTabs">Applies to all open API viewer tabs</span></div>
+    </section>
+    <section id="theme-library" class="theme-library" aria-labelledby="library-title">
+      <div class="library-heading"><div><h2 id="library-title" data-i18n="themeLibrary">Theme library</h2><p data-i18n="libraryHint">Preview a theme, then make it yours.</p></div><button id="refreshBtn" type="button" class="button quiet"><span class="btn-label" data-i18n="refreshButton">Refresh</span></button></div>
+      <div class="library-toolbar">
+        <div class="filter-tabs" role="group" aria-label="Theme source"><button type="button" class="filter-tab active" data-filter="all" aria-pressed="true"><span data-i18n="allThemes">All themes</span><span id="all-count" class="filter-count"></span></button><button type="button" class="filter-tab" data-filter="ilyamixaltik" aria-pressed="false">ilyamixaltik</button><button type="button" class="filter-tab" data-filter="ostranme" aria-pressed="false">ostranme</button></div>
+        <div class="search-box"><label class="sr-only" for="searchInput" data-i18n="searchThemesPlaceholder">Search themes</label><input type="search" id="searchInput" autocomplete="off" placeholder="Search themes…" data-i18n-placeholder="searchThemesPlaceholder"></div>
+      </div>
+      <div class="results-meta"><span id="results-count" role="status"></span><span id="loading-status" hidden data-i18n="refreshingButton">Refreshing…</span></div>
+      <div id="statusArea" class="status-area" role="alert"></div>
+      <div id="themesGrid" class="themes-grid" aria-busy="true"></div>
+    </section>
+    <footer class="page-footer"><span data-i18n="themeFooter">A small change. A more comfortable workspace.</span><span data-i18n="themeCredit">Community themes, powered by Swagger UI.</span></footer>
+  </main>
+  <dialog id="themePreview" aria-labelledby="preview-title">
+    <div class="dialog-header"><div><p class="eyebrow" data-i18n="themePreviewLabel">THEME PREVIEW</p><h2 id="preview-title"></h2></div><button type="button" id="closePreview" class="button quiet" data-i18n="closePreview">Close</button></div>
+    <div class="dialog-image"><img id="preview-image" alt=""><p id="preview-fallback" hidden data-i18n="noPreviewAvailable">No preview available</p></div>
+    <div id="preview-status" class="status-area" role="alert"></div>
+    <div class="dialog-footer"><p data-i18n="previewDisclaimer">Example preview. Your document content stays the same.</p><button type="button" id="applyPreview" class="button primary" data-i18n="useTheme">Use theme</button></div>
+  </dialog>
+  <script src="./options.js"></script>
+</body>
+</html>

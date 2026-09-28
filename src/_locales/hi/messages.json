@@ -1,0 +1,193 @@
+{
+  "extDescription": {
+    "message": "अपने ब्राउज़र में सीधे OpenAPI/Swagger API दस्तावेज़ देखें और परीक्षण करें। सुंदर थीम के साथ, API डेवलपर्स और टेस्टर्स के लिए बिल्कुल सही।"
+  },
+  "extName": {
+    "message": "Swagger UI - API दस्तावेज़ व्यूअर"
+  },
+  "extShortName": {
+    "message": "Swagger UI"
+  },
+  "extDefaultTitle": {
+    "message": "Swagger UI खोलें"
+  },
+  "optionsTitle": {
+    "message": "Swagger UI थीम सेटिंग्स"
+  },
+  "optionsSubtitle": {
+    "message": "Swagger UI के लिए अपनी पसंदीदा थीम चुनें"
+  },
+  "searchThemesPlaceholder": {
+    "message": "थीम खोजें..."
+  },
+  "refreshButton": {
+    "message": "रीफ्रेश करें"
+  },
+  "refreshingButton": {
+    "message": "रीफ्रेश हो रहा है..."
+  },
+  "saveThemeButton": {
+    "message": "थीम सहेजें"
+  },
+  "savingButton": {
+    "message": "सहेजा जा रहा है..."
+  },
+  "allThemes": {
+    "message": "सभी थीम"
+  },
+  "loadingThemes": {
+    "message": "थीम लोड हो रही हैं..."
+  },
+  "noThemesFoundTitle": {
+    "message": "कोई थीम नहीं मिली"
+  },
+  "noThemesFoundDescription": {
+    "message": "अपनी खोज या फ़िल्टर शर्तें बदलकर देखें"
+  },
+  "localBadge": {
+    "message": "स्थानीय"
+  },
+  "themeInUseBadge": {
+    "message": "उपयोग में"
+  },
+  "themeSavingBadge": {
+    "message": "सहेजा जा रहा है..."
+  },
+  "noPreviewAvailable": {
+    "message": "पूर्वावलोकन उपलब्ध नहीं है"
+  },
+  "themeResetSuccess": {
+    "message": "थीम डिफ़ॉल्ट पर रीसेट हो गई"
+  },
+  "themeSavedSuccess": {
+    "message": "थीम सफलतापूर्वक सहेजी गई"
+  },
+  "themeSaveFailed": {
+    "message": "थीम सहेजने में विफल। कृपया फिर से प्रयास करें।"
+  },
+  "githubNetworkFailed": {
+    "message": "GitHub API तक पहुंचने में विफल। कृपया अपना नेटवर्क कनेक्शन जांचें और फिर से प्रयास करें।"
+  },
+  "githubRateLimitPrimary": {
+    "message": "GitHub API दर सीमा पूरी हो गई है। बिना लॉगिन वाले अनुरोध आमतौर पर आपके वर्तमान IP की सीमा साझा करते हैं। $reset_at$ के बाद फिर से प्रयास करें, या GitHub में लॉगिन / टोकन कॉन्फ़िगर करें।",
+    "placeholders": {
+      "reset_at": {
+        "content": "$1"
+      }
+    }
+  },
+  "githubRateLimitSecondary": {
+    "message": "GitHub ने बार-बार आने वाले अनुरोधों को अस्थायी रूप से सीमित किया है। कृपया $wait_time$ के बाद फिर से प्रयास करें।",
+    "placeholders": {
+      "wait_time": {
+        "content": "$1"
+      }
+    }
+  },
+  "githubRateLimitGeneric": {
+    "message": "GitHub API अनुरोध अस्थायी रूप से सीमित हैं। कृपया बाद में फिर से प्रयास करें, या GitHub में लॉगिन करें।"
+  },
+  "githubAuthInvalid": {
+    "message": "GitHub प्रमाणीकरण अमान्य या समाप्त हो गया है। कृपया फिर से लॉगिन करें या अपना एक्सेस टोकन अपडेट करें।"
+  },
+  "githubPermissionDenied": {
+    "message": "GitHub ने अनुरोध अस्वीकार कर दिया। रिपॉजिटरी पहुंच योग्य नहीं हो सकती, या टोकन में आवश्यक अनुमतियां नहीं हो सकतीं।"
+  },
+  "seconds": {
+    "message": "$count$ सेकंड",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "aboutOneMinute": {
+    "message": "लगभग एक मिनट"
+  },
+  "later": {
+    "message": "बाद में"
+  },
+  "defaultTheme": {
+    "message": "डिफ़ॉल्ट"
+  },
+  "defaultThemeDescription": {
+    "message": "Swagger UI का मूल स्वरूप"
+  },
+  "skipToContent": {
+    "message": "सामग्री पर जाएँ"
+  },
+  "settingsLabel": {
+    "message": "सेटिंग्स"
+  },
+  "openApiViewer": {
+    "message": "API दस्तावेज़ खोलें"
+  },
+  "personalizeLabel": {
+    "message": "आपकी पसंद का कार्यक्षेत्र"
+  },
+  "appearance": {
+    "message": "दिखावट"
+  },
+  "appearanceIntro": {
+    "message": "API दस्तावेज़ पढ़ने के लिए अपनी पसंद की थीम चुनें।"
+  },
+  "autoSaveNote": {
+    "message": "बदलाव अपने आप सहेजे जाते हैं"
+  },
+  "currentTheme": {
+    "message": "वर्तमान थीम"
+  },
+  "resetDefault": {
+    "message": "डिफ़ॉल्ट पर लौटें"
+  },
+  "appliesToOpenTabs": {
+    "message": "सभी खुले API दस्तावेज़ टैब पर लागू होता है"
+  },
+  "themeLibrary": {
+    "message": "थीम संग्रह"
+  },
+  "libraryHint": {
+    "message": "पहले पूर्वावलोकन देखें, फिर थीम चुनें।"
+  },
+  "themeFooter": {
+    "message": "एक छोटा बदलाव, अधिक आरामदायक कार्यक्षेत्र।"
+  },
+  "themeCredit": {
+    "message": "Swagger UI के लिए समुदाय की थीम।"
+  },
+  "themePreviewLabel": {
+    "message": "थीम पूर्वावलोकन"
+  },
+  "closePreview": {
+    "message": "बंद करें"
+  },
+  "useTheme": {
+    "message": "थीम लागू करें"
+  },
+  "previewTheme": {
+    "message": "पूर्वावलोकन"
+  },
+  "previewDisclaimer": {
+    "message": "यह एक उदाहरण है। आपके दस्तावेज़ की सामग्री नहीं बदलेगी।"
+  },
+  "savedTheme": {
+    "message": "सहेजी गई थीम"
+  },
+  "builtInTheme": {
+    "message": "अंतर्निहित · Swagger UI"
+  },
+  "clearFilters": {
+    "message": "फ़िल्टर हटाएँ"
+  },
+  "themeResultsCount": {
+    "message": "$total$ में से $visible$ थीम",
+    "placeholders": {
+      "visible": {
+        "content": "$1"
+      },
+      "total": {
+        "content": "$2"
+      }
+    }
+  }
+}
