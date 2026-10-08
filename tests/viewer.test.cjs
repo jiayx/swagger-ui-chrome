@@ -34,6 +34,7 @@ function setup(local = {}, sync = {}) {
   bundle.presets = { apis: {} }; bundle.plugins = { DownloadUrl: {} };
   const context = vm.createContext({ document, window: {}, console: { warn() {} },
     SwaggerUIBundle: bundle, SwaggerUIStandalonePreset: {}, chrome: api });
+  vm.runInContext(fs.readFileSync(require.resolve('../src/viewer/operations.js'), 'utf8'), context);
   vm.runInContext(source, context);
   return { context, api, events, styles, local, sync, start: () => ready(),
     change: (...args) => changed(...args), readTheme: value => readTheme(value),
@@ -44,6 +45,8 @@ test('viewer handles theme reset/read races and saves document URLs locally', as
   const v = setup();
   v.start(); await v.flush();
   assert.equal(v.config().validatorUrl, null);
+  assert.equal(v.config().filter, false);
+  assert.ok(v.config().plugins.includes(v.context.LightweightOperationsPlugin));
   assert.equal(v.config().oauth2RedirectUrl, 'chrome-extension://test/viewer/oauth2-redirect.html');
   v.change({ theme: { newValue: 'new CSS' } }, 'local');
   v.readTheme({ theme: 'stale CSS' });

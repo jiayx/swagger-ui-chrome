@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
       url: url,
       dom_id: '#swagger-ui',
       deepLinking: true,
+      filter: false,
       // Keep private document URLs away from Swagger's public validator.
       validatorUrl: null,
       oauth2RedirectUrl: chrome.runtime.getURL('viewer/oauth2-redirect.html'),
@@ -39,7 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
         SwaggerUIStandalonePreset
       ],
       plugins: [
-        SwaggerUIBundle.plugins.DownloadUrl
+        SwaggerUIBundle.plugins.DownloadUrl,
+        LightweightOperationsPlugin
       ],
       layout: "StandaloneLayout",
       syntaxHighlight: {

@@ -14,6 +14,8 @@
 
 主题来源：[ilyamixaltik/swagger-themes](https://github.com/ilyamixaltik/swagger-themes)、[ostranme/swagger-ui-themes](https://github.com/ostranme/swagger-ui-themes)。
 
+接口摘要全量保留在页面中，可直接使用浏览器 Ctrl+F（Mac 上 Cmd+F）搜索路径、方法和名称；详情首次展开时加载，未展开的参数和响应详情不在原生查找范围内。Chrome 原生查找可自动展开命中的折叠分组。
+
 ## 安装与使用
 
 从 [Chrome 网上应用店](https://chromewebstore.google.com/detail/swagger-ui/liacakmdhalagfjlfdofigfoiocghoej) 安装。

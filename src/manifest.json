@@ -9,7 +9,7 @@
     "128": "icons/icon-128.png"
   },
   "description": "__MSG_extDescription__",
-  "version": "1.8",
+  "version": "1.9",
   "action": {
     "default_icon": {
       "16": "icons/icon-16.png",

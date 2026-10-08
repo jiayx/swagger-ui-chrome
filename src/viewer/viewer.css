@@ -14,3 +14,9 @@ body {
     margin: 0;
     background: #fafafa;
 }
+
+/* Themes may hide closed groups; preserve Chrome's searchable hidden state. */
+.swagger-ui .searchable-operation-content[hidden="until-found"] {
+    display: block !important;
+    content-visibility: hidden !important;
+}

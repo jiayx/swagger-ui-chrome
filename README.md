@@ -14,6 +14,8 @@ View OpenAPI/Swagger documentation, call APIs and customize the documentation th
 
 Theme sources: [ilyamixaltik/swagger-themes](https://github.com/ilyamixaltik/swagger-themes), [ostranme/swagger-ui-themes](https://github.com/ostranme/swagger-ui-themes).
 
+All operation summaries remain in the page for native Ctrl+F (Cmd+F on Mac) search by path, method, or summary. Full operation components load on first expansion; unmounted parameter/response details are not searchable with browser Find. Chrome can reveal collapsed groups when their text matches.
+
 ## Installation and usage
 
 Install from the [Chrome Web Store](https://chromewebstore.google.com/detail/swagger-ui/liacakmdhalagfjlfdofigfoiocghoej).
